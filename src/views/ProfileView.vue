@@ -6,7 +6,7 @@
 
     <LabelInput
               :title="'Firstname'"
-              :titleClass="'flex font-bold'"
+              :titleClass="'flex  font-bold'"
               
               :attribute="'firstname'"
               :valueClass="'text-md '"
