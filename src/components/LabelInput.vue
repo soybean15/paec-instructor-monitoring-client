@@ -3,11 +3,11 @@
       <div :class="titleClass" class="text-sm">{{ title }}</div>
   
       <div class="row items-center w-full">
-        <div class="col-10 py-1" :class="valueClass" v-if="!onEdit">
+        <div class="col-11 py-1" :class="valueClass" v-if="!onEdit">
           {{ val }}
         </div>
   
-        <div class="col-10" v-else>
+        <div class="col-11 px-2" v-else>
   
           <DateTime :dateVal="val" @onChange="onUpdate"  v-if="type === 'date'"/>
          
