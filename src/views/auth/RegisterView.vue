@@ -2,14 +2,12 @@
 
     <div class="q-pa-md row justify-center items-center">
 
-        <div  class="bg-white p-10 rounded-md shadow-md mt-5" style="width: 400px">
-        <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+        <div  class="bg-white p-10 rounded-md shadow-2xl  q-pt-xl" style="width: 450px">
+        <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md q-pt-md q-pa-sm">
 
 
             <q-input
           filled
-          dense
-         
           v-model="registerForm.name"
           label="Username *"
         />
@@ -21,9 +19,7 @@
 
 
         <q-input
-          filled
-          dense
-          
+          filled      
           v-model="registerForm.email"
           label="Email *"
         />
@@ -33,7 +29,6 @@
 
         <q-input
           filled
-          dense
           type="password"
           v-model="registerForm.password"
           label="Password *"
@@ -44,21 +39,19 @@
 
         <q-input
           filled
-          dense
           type="password"
           v-model="registerForm.password_confirmation"
           label="Confirm Password *"
         />
 
-        <div class="row justify-end">
-          <q-btn label="Submit" type="submit" color="primary" />
-          <q-btn
-            label="Reset"
-            type="reset"
-            color="primary"
-            flat
-            class="q-ml-sm"
-          />
+        <div class="row justify-end q-py-md">
+          <q-btn label="Sign up" type="submit" color="secondary" style="width: 100%; height: 50px;" />
+        </div>
+
+        <div class="q-mt-md">
+          <p class="text-grey">Have an account already? 
+            <q-text class="text-primary " style="text-decoration: underline;">Login Here</q-text>
+          </p>
         </div>
         </q-form>
 
