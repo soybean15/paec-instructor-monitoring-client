@@ -1,29 +1,23 @@
 <template>
-  <div class="column">
-    <div class="row">
-      <PhotoUpload @upload="upload" :attribute="'image'" :errors="errors" />
-    </div>
+  <div class="row ">
 
-    <LabelInput
-              :title="'Firstname'"
-              :titleClass="'flex  font-bold'"
-              
-              :attribute="'firstname'"
-              :valueClass="'text-md '"
-            
-              
-            />
+    <div class="col-6">
+        <ProfileContainer/>
+    </div>
+    
+
   </div>
 </template>
 
 <script>
-import PhotoUpload from "@/components/PhotoUpload.vue";
-import LabelInput from "@/components/LabelInput.vue";
+import ProfileContainer from './children/ProfileContainer.vue'
 
 export default {
-  components: { PhotoUpload, LabelInput },
-};
+    components:{ProfileContainer}
+
+}
 </script>
 
 <style>
+
 </style>
