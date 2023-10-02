@@ -18,21 +18,22 @@
 
 
 
-          <q-btn-group outline>
+          <q-btn-group outline v-if="!user">
             <q-btn flat dense :to="{name:'login'}" label="Login" />
             <q-btn flat dense :to="{name:'register'}" label="Register"  />
           </q-btn-group>
+          <q-btn flat dense @click="authStore.logout" label="Logout" v-else/>
         </div>
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="/page1" label="Page One" />
-        <q-route-tab to="/page2" label="Page Two" />
+        <q-route-tab :to="{name:'home'}" label="Home" />
+        <q-route-tab :to="{name:'profile'}" label="Profile" />
         <q-route-tab to="/page3" label="Page Three" />
       </q-tabs>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" side="left" overlay bordered>
+    <q-drawer class="bg-primary" v-model="leftDrawerOpen" side="left" overlay bordered>
       <!-- drawer content -->
     </q-drawer>
 
@@ -70,6 +71,8 @@ export default {
 
     return {
       leftDrawerOpen,
+      user,
+      authStore,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
