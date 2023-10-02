@@ -32,9 +32,12 @@ export const useAuthStore = defineStore('auth', () => {
                 loginForm.value.password =''
             
            }
+
+           router.push('/')
         }catch(e){
 
-            if(e.response.status ===422){
+
+            if(e.response && e.response.status ===422){
                 errors.value = e.response.data.errors
                
             }
@@ -60,7 +63,8 @@ export const useAuthStore = defineStore('auth', () => {
     const getUser = async ()=>{
         await axios.get('sanctum/csrf-cookie')
         try{
-            await axios.get('api/user')
+            const response = await axios.get('api/user')
+            user.value = response.data
         }catch(e){
 
             if(e.response.status === 401){
