@@ -60,6 +60,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
     const logout = async()=>{
         await axios.post('logout')
+        user.value= null
 
         getUser()
     }
