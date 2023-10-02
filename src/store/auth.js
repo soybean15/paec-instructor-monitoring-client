@@ -58,6 +58,11 @@ export const useAuthStore = defineStore('auth', () => {
         }
         
     }
+    const logout = async()=>{
+        await axios.post('logout')
+
+        getUser()
+    }
 
 
     const getUser = async ()=>{
@@ -81,6 +86,7 @@ export const useAuthStore = defineStore('auth', () => {
         errors,
         registerForm,
         getUser,
+        logout,
         register,
         login
     }
