@@ -6,20 +6,54 @@ import router from '@/router'
 
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null)
+    const errors = ref([])
     const loginForm= ref({
         email:'',
         password:''
     })
 
-    const login = async ()=>{
-        await axios.post('login',loginForm.value)
+    const registerForm =ref({
+        name:'',
+        email:'',
+        password:'',
+        password_confirmation:''
 
-        if( await getUser()){
-            close()
-            loginForm.value.email =''
-            loginForm.value.password =''
+
+    })
+
+    const login = async ()=>{
+        errors.value =[]
+        try{
+            await axios.post('login',loginForm.value)
+
+            if( await getUser()){
+                close()
+                loginForm.value.email =''
+                loginForm.value.password =''
+            
+           }
+        }catch(e){
+
+            if(e.response.status ===422){
+                errors.value = e.response.data.errors
+               
+            }
+        }
+       
+    }
+
+
+    const register = async()=>{
+        errors.value=[]
+        try{
+            await axios.post('register', registerForm.value)
+        }catch(e){
+
+            if(e.response.status ===422){
+                errors.value = e.response.data.errors
+            }
+        }
         
-       }
     }
 
 
@@ -40,7 +74,10 @@ export const useAuthStore = defineStore('auth', () => {
     return { 
         user,
         loginForm,
+        errors,
+        registerForm,
         getUser,
+        register,
         login
     }
   })

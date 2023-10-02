@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="hHh lpR fFf" class="bg-primary">
     <q-header reveal class="bg-primary text-white" height-hint="98">
       <q-toolbar>
         <div class="row justify-between w-full">
@@ -20,7 +20,7 @@
 
           <q-btn-group outline>
             <q-btn flat dense :to="{name:'login'}" label="Login" />
-            <q-btn flat dense label="Register"  />
+            <q-btn flat dense :to="{name:'register'}" label="Register"  />
           </q-btn-group>
         </div>
       </q-toolbar>
