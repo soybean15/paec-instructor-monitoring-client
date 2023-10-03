@@ -1,9 +1,10 @@
 <template>
-    <div class="column">
-      <div :class="titleClass" class="text-sm">{{ title }}</div>
+    <div class="column q-px-sm q-pl-lg">
+      <div :class="titleClass" class=" text-gray-500 q-pt-sm text-sm"><p>{{ title }}</p></div>
   
       <div class="row items-center w-full">
-        <div class="col-11 py-1" :class="valueClass" v-if="!onEdit">
+        <div class="col-11 py-1 text-md text-secondary text-bold row justify-center" style="text-decoration: underline;"
+         :class="valueClass" v-if="!onEdit">
           {{ val }}
         </div>
   
@@ -25,7 +26,7 @@
             "
           />
   
-          <SelectInput :data="data" :value="val"  @onSelect="onUpdate"  v-if="type==='select'"/>
+          <SelectInput :data="data" :value="val"  @onSelect="onUpdate"  v-if="type==='select'" />
   
   
   
@@ -39,6 +40,7 @@
           flat
           size=".7em"
           @click="change"
+          color="secondary"
        
           :icon="!onEdit ? 'edit' : 'edit_off'"
         />

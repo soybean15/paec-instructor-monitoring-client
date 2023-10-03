@@ -13,39 +13,69 @@
 
  <template>
   
-      <div class="column bg-white p-10">
-        <div class="row">
+      <div class=" bg-white p-10 q-pa-xl rounded-md">
+        <div class="row justify-center q-pa-sm">
           <PhotoUpload @upload="upload" :attribute="'image'" :errors="errors" />
         </div>
   
         <LabelInput
-          :title="'Firstname'"
+          :title="'First Name'"
           :titleClass="'flex  font-bold'"
           :valueClass="'text-md '"
           :attribute="'firstname'"
         />
   
         <LabelInput
-          :title="'Lastname'"
+          :title="'Last Name'"
           :titleClass="'flex  font-bold'"
           :valueClass="'text-md '"
-          :attribute="'firstname'"
+          :attribute="'lastname'"
         />
+
         <LabelInput
-          :title="'Gender'"
+          :title="'Middle Name'"
           :titleClass="'flex  font-bold'"
-          :type="'select'"
-          :data="['Male', 'Female']"
           :valueClass="'text-md '"
-          :attribute="'gender'"
+          :attribute="'lastname'"
         />
+
+        <div class="row justify-start">
+          <div class="col-6 q-pt-sm">
+            <LabelInput
+              :title="'Gender'"
+              :titleClass="'flex  font-bold'"
+              :type="'select'"
+              :data="['Male', 'Female']"
+              :valueClass="'text-md '"
+              :attribute="'gender'"
+            />
+          </div>
+         <div class="col-6 q-pr-md q-pt-sm">
+          <LabelInput
+            :title="'BirthDate'"
+            :titleClass="'flex  font-bold'"
+            :type="'date'"
+            :valueClass="'text-md '"
+            :attribute="'birthdate'"
+          />
+        </div> 
+         </div>
   
+     
+       
+
         <LabelInput
-          :title="'BirthDate'"
+          :title="'Contact Number'"
           :titleClass="'flex  font-bold'"
-          :type="'date'"
           :valueClass="'text-md '"
-          :attribute="'birthdate'"
+          :attribute="'contact_number'"
+        />
+
+        <LabelInput
+          :title="'Address'"
+          :titleClass="'flex  font-bold'"
+          :valueClass="'text-md '"
+          :attribute="'address'"
         />
       </div>
 
@@ -60,5 +90,4 @@
   };
   </script>
   
-  <style>
-  </style>
+ 
