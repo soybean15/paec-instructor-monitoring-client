@@ -22,7 +22,12 @@
             <q-btn flat dense :to="{name:'login'}" label="Login" />
             <q-btn flat dense :to="{name:'register'}" label="Register"  />
           </q-btn-group>
-          <q-btn flat dense @click="authStore.logout" label="Logout" v-else/>
+
+          <q-btn-group outline  v-else>
+            <q-btn flat dense :to="{name:'admin'}" label="Administrator" v-if="isAdmin[0]"/>
+            <q-btn flat dense @click="authStore.logout" label="Logout"/>
+          </q-btn-group>
+{{ isAdmin[0] }}
         </div>
       </q-toolbar>
 
@@ -61,17 +66,21 @@ import { storeToRefs } from "pinia";
 export default {
   setup() {
     const leftDrawerOpen = ref(false);
+   
 
     const authStore = useAuthStore();
-    const { user } = storeToRefs(authStore);
+    const { user,isAdmin } = storeToRefs(authStore);
 
     onMounted(() => {
       authStore.getUser();
+    
+      console.log(isAdmin.value)
     });
 
     return {
       leftDrawerOpen,
       user,
+      isAdmin,
       authStore,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

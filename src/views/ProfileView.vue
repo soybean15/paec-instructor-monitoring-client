@@ -11,9 +11,19 @@
 
 <script>
 import ProfileContainer from './children/ProfileContainer.vue'
+import { useUserStore } from '@/store/user';
+import { onMounted } from 'vue';
 
 export default {
-    components:{ProfileContainer}
+    components:{ProfileContainer},
+    setup(){
+
+      const userStore = useUserStore()
+      onMounted(()=>{
+        userStore.getProfile()
+      })
+
+    }
 
 }
 </script>

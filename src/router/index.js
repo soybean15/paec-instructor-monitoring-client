@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { useAuthStore } from '@/store/auth'
+import { storeToRefs } from 'pinia'
 
 const routes = [
   {
@@ -41,6 +43,30 @@ const routes = [
         component: () => import('@/views/ProfileView.vue'),
       }
     ]
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import(/* webpackChunkName: "about" */ '../views/admin/AdminView.vue'),
+    beforeEnter :async(to, from, next)=> {
+      const authStore = useAuthStore()
+      const {user,isAdmin} = storeToRefs(authStore)
+      if(!user.value){
+       await authStore.getUser()
+      }
+
+      if (user.value && isAdmin.value[0]) {
+       
+          next();
+      } else {
+
+        next('/');
+      }
+
+     
+
+
+    }
   },
   {
     path: '/about',
