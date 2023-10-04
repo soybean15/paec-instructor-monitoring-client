@@ -21,6 +21,9 @@ export const useAuthStore = defineStore('auth', () => {
 
     })
 
+    const isAdmin =ref(false)
+    
+
     const login = async ()=>{
         errors.value =[]
         try{
@@ -61,6 +64,7 @@ export const useAuthStore = defineStore('auth', () => {
     const logout = async()=>{
         await axios.post('logout')
         user.value= null
+        isAdmin.value= false
 
         getUser()
     }
@@ -71,6 +75,8 @@ export const useAuthStore = defineStore('auth', () => {
         try{
             const response = await axios.get('api/user')
             user.value = response.data
+
+            isAdmin.value =  (await axios.get('api/is-admin')).data
         }catch(e){
 
             if(e.response.status === 401){
@@ -89,6 +95,8 @@ export const useAuthStore = defineStore('auth', () => {
         getUser,
         logout,
         register,
-        login
+        login,
+
+        isAdmin
     }
   })
