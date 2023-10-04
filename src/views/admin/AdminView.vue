@@ -17,19 +17,24 @@
       <q-drawer show-if-above v-model="leftDrawerOpen" side="left" behavior="desktop" bordered>
         
 
-        <div class="p-5">
-            <div v-for="item in sidePanelItems" :key="item.title">  
+        <div class="p-5 ">
+            <div class="text-lg py-2" v-for="item in sidePanelItems" :key="item.title">  
 
-                <div class="row">{{ item.title }}</div>
+                <div class="row pt-2 text-md text-bold">{{ item.title }}</div>
                 <div v-for="item in  item.children" :key="item.title">
 
                     <!-- You Can use q-btn here -->
-                    <div class="row items-center">
-                        <q-icon :name="item.icon" />
-                       <span> {{ item.title }}</span>
-                      
+                    <div class="row items-center pl-5 py-2">
+                        <div class="">
+                             <q-icon color="secondary" size="25px" :name="item.icon" />
+                        </div>
+                       <div class="pt-1 ml-3" >
+                          <span> {{ item.title }}</span>
+                       </div>
+                     
                     </div>
                      <!-- You Can use q-btn here -->
+                     
                 </div>
             
             
@@ -64,52 +69,57 @@
 
       const sidePanelItems =[
       {
-        title:'Menu',
+        title:'MENU',
         children:[
             {
-                title:'dashboard',
+                title:'Dashboard',
                 to: 'dashboard',
-                icon: 'icon_name'
+                icon: 'grid_view'
             }
         ]
       },
       {
-        title:'Academics',
+        title:'ACADEMICS',
         children:[
+           {
+                title:'Course',
+                to: 'subjects',
+                icon: 'class'
+            },
             {
                 title:'Subjects',
                 to: 'subjects',
-                icon: 'icon_name'
+                icon: 'menu_book'
             },
             {
                 title:'Departments',
                 to: 'department',
-                icon: 'icon_name'
+                icon: 'groups_3'
             }
         ]
       },
       {
-        title:'Users',
+        title:'USERS',
         children:[
             {
                 title:'Teachers',
                 to: 'teacher',
-                icon: 'warning'
+                icon: 'co_present'
             },
             {
                 title:'Roles',
                 to: 'RoleAdmin',
-                icon: 'icon_name'
+                icon: 'admin_panel_settings'
             }
         ]
       },
       {
-        title:'Others',
+        title:'OTHERS',
         children:[
             {
                 title:'Settings',
                 to: 'settings',
-                icon: 'icon_name'
+                icon: 'settings'
             },
      
         ]
