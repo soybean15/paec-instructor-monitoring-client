@@ -15,7 +15,26 @@
       </q-header>
   
       <q-drawer show-if-above v-model="leftDrawerOpen" side="left" behavior="desktop" bordered>
-        <!-- drawer content -->
+        
+
+        <div class="p-5">
+            <div v-for="item in sidePanelItems" :key="item.title">  
+
+                <div class="row">{{ item.title }}</div>
+                <div v-for="item in  item.children" :key="item.title">
+
+                    <!-- You Can use q-btn here -->
+                    <div class="row items-center">
+                        <q-icon :name="item.icon" />
+                       <span> {{ item.title }}</span>
+                      
+                    </div>
+                     <!-- You Can use q-btn here -->
+                </div>
+            
+            
+            </div>
+        </div>
       </q-drawer>
   
       <q-page-container>
@@ -42,12 +61,69 @@
   export default {
     setup () {
       const leftDrawerOpen = ref(false)
+
+      const sidePanelItems =[
+      {
+        title:'Menu',
+        children:[
+            {
+                title:'dashboard',
+                to: 'dashboard',
+                icon: 'icon_name'
+            }
+        ]
+      },
+      {
+        title:'Academics',
+        children:[
+            {
+                title:'Subjects',
+                to: 'subjects',
+                icon: 'icon_name'
+            },
+            {
+                title:'Departments',
+                to: 'department',
+                icon: 'icon_name'
+            }
+        ]
+      },
+      {
+        title:'Users',
+        children:[
+            {
+                title:'Teachers',
+                to: 'teacher',
+                icon: 'warning'
+            },
+            {
+                title:'Roles',
+                to: 'RoleAdmin',
+                icon: 'icon_name'
+            }
+        ]
+      },
+      {
+        title:'Others',
+        children:[
+            {
+                title:'Settings',
+                to: 'settings',
+                icon: 'icon_name'
+            },
+     
+        ]
+      }
+
+
+      ]
   
       return {
         leftDrawerOpen,
         toggleLeftDrawer () {
           leftDrawerOpen.value = !leftDrawerOpen.value
-        }
+        },
+        sidePanelItems
       }
     }
   }
