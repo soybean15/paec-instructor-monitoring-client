@@ -27,7 +27,8 @@
             <q-btn flat dense :to="{name:'admin'}" label="Administrator" v-if="isAdmin[0]"/>
             <q-btn flat dense @click="authStore.logout" label="Logout"/>
           </q-btn-group>
-{{ isAdmin[0] }}
+
+      
         </div>
       </q-toolbar>
 
