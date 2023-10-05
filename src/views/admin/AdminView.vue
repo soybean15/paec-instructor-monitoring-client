@@ -26,10 +26,10 @@
                     <!-- You Can use q-btn here -->
                     <div class="row items-center pl-5 py-2">
                         <div class="">
-                             <q-icon color="secondary" size="25px" :name="item.icon" />
+                             <q-icon  color="secondary" size="25px" :name="item.icon" />
                         </div>
                        <div class="pt-1 ml-3" >
-                          <span> {{ item.title }}</span>
+                          <router-link :to="item.to"><span > {{ item.title }}</span></router-link>
                        </div>
                      
                     </div>
@@ -83,12 +83,12 @@
         children:[
            {
                 title:'Course',
-                to: 'subjects',
+                to: 'course',
                 icon: 'class'
             },
             {
                 title:'Subjects',
-                to: 'subjects',
+                to: 'subject',
                 icon: 'menu_book'
             },
             {
