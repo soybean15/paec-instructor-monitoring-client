@@ -18,9 +18,10 @@
 
             <template v-slot:top>
 
-                <div class="row text-lg font-semibold">
-                Subject
-
+                <div class="row text-lg font-semibold  justify-between w-full">
+                <span>Subject</span>
+                <CreateSubjectModal/>
+                
                 </div>
 
 
@@ -36,8 +37,10 @@
 <script >
 import DataTable from '@/components/DataTable.vue'
 import {useSubjectStore} from '@/store/subject'
+
 import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
+import CreateSubjectModal from './modals/CreateSubjectModal.vue'
 
 
 const columns =[
@@ -96,7 +99,7 @@ const columns =[
 ]
 
 export default {
-    components:{DataTable},
+    components:{DataTable,CreateSubjectModal},
     setup(){
         const subjectStore = useSubjectStore()
 
