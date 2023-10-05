@@ -76,6 +76,22 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import('@/views/admin/SubjectView.vue'),
+      },
+      {
+        path: '/course',
+        name: 'course',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/admin/CourseView.vue'),
+      },
+      {
+        path: '/department',
+        name: 'department',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/admin/DepartmentView.vue'),
       }
     ]
   },
