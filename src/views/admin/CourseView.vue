@@ -17,11 +17,12 @@
          <DataTable :columns="columns" :rows="courses" >
  
              <template v-slot:top>
- 
-                 <div class="row text-lg font-semibold">
-                 Course
- 
-                 </div>
+                
+                <div class="row text-lg font-semibold  justify-between w-full">
+                <span>Course</span>
+                <CreateCourseModal/>
+                
+                </div>
  
  
  
@@ -38,6 +39,7 @@
  import {useCourseStore} from '@/store/course'
  import { onMounted } from 'vue'
  import { storeToRefs } from 'pinia'
+ import CreateCourseModal from './modals/CreateCourseModal.vue'
  
  
  const columns =[
@@ -66,7 +68,7 @@
  ]
  
  export default {
-     components:{DataTable},
+     components:{DataTable, CreateCourseModal},
      setup(){
          const courseStore = useCourseStore()
  
