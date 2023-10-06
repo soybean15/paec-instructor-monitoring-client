@@ -16,25 +16,22 @@
       </template>
   
       <template v-slot:title>
-        <div>Add Course</div>
+        <div>Add Department</div>
       </template>
   
   
   
       <template v-slot:content>
-        <q-form @submit="courseStore.addCourse" @reset="onReset" class="q-gutter-md">
+        <q-form @submit="departmentStore.addDepartment" @reset="onReset" class="q-gutter-md">
   
           <span class="text-red-400" v-if="errors.name">{{ errors.name[0] }}</span>
           <q-input
             outlined
-            v-model="courseForm.name"
-            label="Course *"
-          
+            v-model="departmentForm.name"
+            label="Department *"
           />
   
        
-  
-          <q-input outlined type="textarea" v-model="courseForm.description" label="description" />
   
           <div>
             <q-btn label="Submit" type="submit" color="primary" />
@@ -56,19 +53,19 @@
   
   <script>
   import PersistenDialog from "@/components/PersistenDialog.vue";
-  import {useCourseStore} from '@/store/course'
+  import {useDepartmentStore} from '@/store/department'
   import { storeToRefs } from 'pinia';
   export default {
     components: { PersistenDialog },
   
     setup() {
   
-      const courseStore = useCourseStore()
-      const {courseForm,errors}=storeToRefs(courseStore)
+      const departmentStore = useDepartmentStore()
+      const {departmentForm,errors}=storeToRefs(departmentStore)
       return {
       
-        courseForm,
-        courseStore,
+        departmentForm,
+        departmentStore,
         errors
   
       };
