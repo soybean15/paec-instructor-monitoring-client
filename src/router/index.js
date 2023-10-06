@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import { useAuthStore } from '@/store/auth'
 import { storeToRefs } from 'pinia'
 
+import setActiveNav from '@/composables/setActiveNav'
+
 const routes = [
   {
     path: '/',
@@ -72,26 +74,33 @@ const routes = [
       {
         path: '/subject',
         name: 'subject',
+        meta:{owner:'subject'},
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import('@/views/admin/SubjectView.vue'),
+        beforeEnter: setActiveNav
       },
       {
         path: '/course',
         name: 'course',
+
+        meta:{owner:'course'},
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import('@/views/admin/CourseView.vue'),
+        beforeEnter: setActiveNav
       },
       {
         path: '/department',
         name: 'department',
+        meta:{owner:'department'},
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import('@/views/admin/DepartmentView.vue'),
+        beforeEnter: setActiveNav
       }
     ]
   },

@@ -24,6 +24,7 @@ export const useSubjectStore = defineStore('subject', () => {
     })
 
     const errors = ref([])
+    const status =ref(null)
 
     const index = async()=>{
 
@@ -48,12 +49,40 @@ export const useSubjectStore = defineStore('subject', () => {
 
      
     }
+
+    const update= async(id,attribute,value)=>{
+        status.value= null
+        try{
+            const response = await axios.post('api/admin/subject/update',{
+                id:id,
+                attribute:attribute,
+                value:value
+    
+            })
+            status.value = response.data
+        }catch(e){
+
+            if(e.response.status === 422 || e.response.status ===404 ){
+                status.value = e.response.data
+
+            }
+
+        }
+
+
+    }
+    const resetStatus=  ()=>{
+        status.value= null
+    }
     return {
         subjects,
         subjectForm,
         errors,
+        status,
         addSubject,
-        index
+        resetStatus,
+        index,
+        update
     }
 
 })

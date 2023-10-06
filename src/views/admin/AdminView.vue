@@ -24,12 +24,13 @@
                 <div v-for="item in  item.children" :key="item.title">
 
                     <!-- You Can use q-btn here -->
-                    <div class="row items-center pl-5 py-2">
+                    <div class="row items-center pl-5 py-2" :class="{'bg-primary rounded-md text-white' : adminNav_active === item.to}">
+
                         <div class="">
                              <q-icon  color="secondary" size="25px" :name="item.icon" />
                         </div>
                        <div class="pt-1 ml-3" >
-                          <router-link :to="item.to"><span > {{ item.title }}</span></router-link>
+                          <router-link :to="item.to"><span > {{ item.title }} </span></router-link>
                        </div>
                      
                     </div>
@@ -62,10 +63,14 @@
   
   <script>
   import { ref } from 'vue'
+import { useNavStore } from '@/store/nav'
+import { storeToRefs } from 'pinia'
   
   export default {
     setup () {
       const leftDrawerOpen = ref(false)
+      const navStore = useNavStore()
+      const {adminNav_active}=storeToRefs(navStore)
 
       const sidePanelItems =[
       {
@@ -127,13 +132,16 @@
 
 
       ]
+
+      console.log(adminNav_active.value)
   
       return {
         leftDrawerOpen,
         toggleLeftDrawer () {
           leftDrawerOpen.value = !leftDrawerOpen.value
         },
-        sidePanelItems
+        sidePanelItems,
+        adminNav_active
       }
     }
   }
