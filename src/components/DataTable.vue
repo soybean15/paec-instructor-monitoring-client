@@ -25,12 +25,12 @@
         >
           <!-- <slot v-for="cell in cells" :key="cell" name="cell"></slot> -->
     
-          <template
+         <template
             v-for="cell in cells"
             :key="cell"
             v-slot:[`body-cell-${cell}`]="props"
           >
-            <slot :name="cell" :props="props"></slot>
+            <slot :name="cell"  :props="props"></slot>
           </template>
     
           <template v-slot:top-right>
