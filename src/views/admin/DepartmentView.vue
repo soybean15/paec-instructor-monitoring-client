@@ -18,8 +18,9 @@
  
              <template v-slot:top>
  
-                 <div class="row text-lg font-semibold">
+                 <div class="row text-lg font-semibold w-full justify-between">
                  Department
+                 <CreateDepartmentModal />
  
                  </div>
  
@@ -38,6 +39,7 @@
  import {useDepartmentStore} from '@/store/department'
  import { onMounted } from 'vue'
  import { storeToRefs } from 'pinia'
+ import CreateDepartmentModal from './modals/CreateDepartmentModal.vue'
  
  
  const columns =[
@@ -57,7 +59,7 @@
  ]
  
  export default {
-     components:{DataTable},
+     components:{DataTable, CreateDepartmentModal},
      setup(){
          const departmentStore = useDepartmentStore()
  
@@ -75,7 +77,8 @@
  
          return {
              columns,
-             departments
+             departments,
+            
          }
  
  
