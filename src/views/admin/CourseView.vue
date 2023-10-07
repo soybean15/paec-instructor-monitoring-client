@@ -14,20 +14,69 @@
          -top
          -bottom -->
  
-         <DataTable :columns="columns" :rows="courses" >
+         <q-banner inline-actions class="text-white " :class="{'bg-red':status.status ==='failed', 'bg-green':status.status === 'success'}" v-if="status">
+          {{status.message}}
+            <template v-slot:action>
+              <q-btn @click="courseStore.resetStatus" flat color="white" label="close" />
+            </template>
+          </q-banner>
+         <DataTable :columns="columns" 
+                    :rows="courses"
+                    :cells="[
+                      'name',
+                      'description'
+                    ]" >
  
              <template v-slot:top>
                 
                 <div class="row text-lg font-semibold  justify-between w-full">
-                <span>Course</span>
-                <CreateCourseModal/>
-                
-                </div>
- 
- 
- 
+                    <span>Course</span>
+                    <CreateCourseModal/>                 
+                 </div>
              </template>
- 
+
+             <template v-slot:name="{ props }">
+                <q-td :props="props">
+                  <div>
+                    {{ props.row.name }}
+                    <q-popup-edit
+                      @update:model-value="onUpdate(props.row.id, 'name', $event)"
+                      v-model="props.row.name"
+                      v-slot="scope"
+                    >
+                      <q-input
+                        v-model="scope.value"
+                        dense
+                        autofocus
+                        counter
+                        @keyup.enter="scope.set"
+                      />
+                    </q-popup-edit>
+                  </div>
+                </q-td>
+              </template>
+
+              <template v-slot:description="{ props }">
+                  <q-td :props="props">
+                    <div>
+                      {{ props.row.description }}
+                      <q-popup-edit
+                        @update:model-value="onUpdate(props.row.id, 'description', $event)"
+                        v-model="props.row.description"
+                        v-slot="scope"
+                      >
+                        <q-input
+                          v-model="scope.value"
+                          dense
+                          autofocus
+                          counter
+                          @keyup.enter="scope.set"
+                        />
+                      </q-popup-edit>
+                    </div>
+                  </q-td>
+                </template>
+          
  
  
  
@@ -73,7 +122,7 @@
          const courseStore = useCourseStore()
  
          
-         const {courses} =storeToRefs(courseStore)
+         const {courses,status} =storeToRefs(courseStore)
       
  
          onMounted(()=>{
@@ -85,15 +134,20 @@
  
  
          return {
+             courseStore,
              columns,
-             courses
-         }
+             courses,
+             onUpdate: (id, attribute, value) => {
+                courseStore.update(id, attribute, value);
+              },
+              status
+          };
  
  
  
-     }
+     },
  
- }
+ };
  </script>
  
  <style>

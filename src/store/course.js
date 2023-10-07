@@ -5,12 +5,15 @@ import router from '@/router'
 
 export const useCourseStore = defineStore('course', () =>{
 
-    const errors = ref([])
+
     const courses = ref([])
     const courseForm = ref({
         name:null,
         description: '',
     })
+
+    const errors = ref([])
+    const status =ref(null)
 
     const index = async() => {
         const response = await axios.get('api/admin/course')
@@ -32,12 +35,42 @@ export const useCourseStore = defineStore('course', () =>{
         }
     }
 
+    const update= async(id,attribute,value)=>{
+        status.value= null
+        try{
+            const response = await axios.post('api/admin/course/update',{
+                id:id,
+                attribute:attribute,
+                value:value
+    
+            })
+            status.value = response.data
+        }catch(e){
+
+            if(e.response.status === 422 || e.response.status ===404 ){
+                status.value = e.response.data
+
+            }
+
+        }
+
+
+    }
+
+    const resetStatus=  ()=>{
+        status.value= null
+    }
+
     return {
         courses,
         index,
         courseForm,
         addCourse,
-        errors
+        errors,
+        resetStatus,
+        update,
+        status
+
     }
 
 })

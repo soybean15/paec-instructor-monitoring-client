@@ -11,7 +11,7 @@ export const useSubjectStore = defineStore('subject', () => {
     //     'year_level',
     //     'semester',
     //     'number_of_units',
-    //     'course_id' -->
+    //     'course_id' --> 
     const subjects = ref([])
     const subjectForm = ref({
         name :null,
