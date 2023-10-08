@@ -57,6 +57,24 @@ export const useCourseStore = defineStore('course', () =>{
 
     }
 
+    const destroy= async(id)=>{
+        status.value= null
+
+        try{
+            const response = await axios.post('api/admin/course/destroy',{
+                id:id
+            })
+    
+            status.value = response.data      
+        }catch(e){
+            status.value = e.response.data
+
+        }
+    
+
+
+      }
+
     const resetStatus=  ()=>{
         status.value= null
     }
@@ -69,7 +87,8 @@ export const useCourseStore = defineStore('course', () =>{
         errors,
         resetStatus,
         update,
-        status
+        status,
+        destroy,
 
     }
 

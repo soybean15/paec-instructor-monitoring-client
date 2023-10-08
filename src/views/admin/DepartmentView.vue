@@ -26,6 +26,7 @@
              :rows="departments"
              :cells="[
                 'name',
+                'action',
              ]" >
  
              <template v-slot:top>
@@ -37,6 +38,9 @@
  
              <template v-slot:name="{ props }">
                 <q-td :props="props">
+                    <q-tooltip  anchor="bottom start" self="center start" :offset="[-10,10]">
+                        Click to Edit
+                    </q-tooltip>
                     <div>
                     {{ props.row.name }}
                     <q-popup-edit
@@ -56,6 +60,38 @@
                 </q-td>
             </template>
             
+            <template v-slot:action="{props}">
+
+                <q-td :props="props">
+
+                    <ConfirmDialog>
+
+                        <template v-slot:open-button="{open}">
+                            <q-btn @click="open" round color="red" icon="delete" />
+                    
+                        </template>
+
+                        <template v-slot:title>
+                            <div class="font-bold text-lg "> Delete Department </div>
+
+                        </template>
+                        <template v-slot:message>
+                            <div class=" text-md text-grey-9 my-5"> Are you sure you want to delete {{ props.row.name }}? </div>
+
+                        </template>
+                        <template v-slot:buttons="{close}">
+                            <div class="row justify-end my-4">
+                            <q-btn :loading="loading"  @click="onDelete(props.row.id,close)" class="mx-1" dense  color="red" label="Confirm" />
+                            <q-btn   class="mx-1" @click="close" dense   color="secondary" label="Cancel" />
+                            </div>
+                        
+                        </template>
+                    </ConfirmDialog>
+                    
+
+                </q-td>
+            </template>
+            
  
  
          </DataTable>
@@ -64,10 +100,11 @@
  <script >
  import DataTable from '@/components/DataTable.vue'
  import {useDepartmentStore} from '@/store/department'
- import { onMounted } from 'vue'
+ import { onMounted, ref } from 'vue'
  import { storeToRefs } from 'pinia'
  import CreateDepartmentModal from './modals/CreateDepartmentModal.vue'
- 
+ import ConfirmDialog from '@/components/ConfirmDialog.vue'
+ true
  
  const columns =[
  {
@@ -80,13 +117,20 @@
      format: (val) => `${val}`,
   
    },
+   {
+     name: 'action',
+     label: 'Action',
+     required: true,
+     align: 'left',
+  
+   },
 
 
  
  ]
  
  export default {
-     components:{DataTable, CreateDepartmentModal},
+     components:{DataTable, CreateDepartmentModal, ConfirmDialog},
      setup(){
          const departmentStore = useDepartmentStore()
  
@@ -96,11 +140,9 @@
  
          onMounted(()=>{
              departmentStore.index()
-         }
-         
-         )
+         });
  
- 
+         const loading = ref(false)
  
          return {
              columns,
@@ -110,14 +152,26 @@
              onUpdate: (id, attribute, value) => {
                 departmentStore.update(id, attribute, value);
             },
+            onDelete:async(id,close)=>{
+
+                loading.value = true
+                const delay =2000
+                await new Promise((resolve) => setTimeout(resolve, delay));
+                await departmentStore.destroy(id)
+                loading.value = false
+                close()
+
+            },
+            status,
+            loading
             
-         }
+         };
  
  
  
-     }
+     },
  
- }
+ };
  </script>
  
  <style>

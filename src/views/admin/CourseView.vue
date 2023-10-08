@@ -24,7 +24,8 @@
                     :rows="courses"
                     :cells="[
                       'name',
-                      'description'
+                      'description',
+                      'action',
                     ]" >
  
              <template v-slot:top>
@@ -37,6 +38,9 @@
 
              <template v-slot:name="{ props }">
                 <q-td :props="props">
+                  <q-tooltip  anchor="bottom start" self="center start" :offset="[-10,10]">
+                    Click to Edit
+                    </q-tooltip>
                   <div>
                     {{ props.row.name }}
                     <q-popup-edit
@@ -58,6 +62,9 @@
 
               <template v-slot:description="{ props }">
                   <q-td :props="props">
+                    <q-tooltip  anchor="bottom start" self="center start" :offset="[-10,10]">
+                    Click to Edit
+                    </q-tooltip>
                     <div>
                       {{ props.row.description }}
                       <q-popup-edit
@@ -78,6 +85,40 @@
                 </template>
           
  
+                <template v-slot:action="{props}">
+                    <q-td :props="props">
+
+
+                      <ConfirmDialog >
+
+                        <template v-slot:open-button="{open}">
+                          <q-btn @click="open" round color="red" icon="delete" />
+                  
+                        </template>
+
+                        <template v-slot:title>
+                          <div class="font-bold text-lg "> Delete Course </div>
+
+                        </template>
+                        <template v-slot:message>
+                          <div class=" text-md text-grey-9 my-5"> Are you sure you want to delete {{ props.row.name }}? </div>
+
+                        </template>
+                        <template v-slot:buttons="{close}">
+                          <div class="row justify-end my-4">
+                            <q-btn :loading="loading"  @click="onDelete(props.row.id,close)" class="mx-1" dense  color="red" label="Confirm" />
+                          <q-btn   class="mx-1" @click="close" dense   color="secondary" label="Cancel" />
+                          </div>
+                        
+                        </template>
+
+                      </ConfirmDialog>
+
+                    
+                    </q-td>
+                  
+                  
+                  </template>
  
  
          </DataTable>
@@ -86,9 +127,10 @@
  <script >
  import DataTable from '@/components/DataTable.vue'
  import {useCourseStore} from '@/store/course'
- import { onMounted } from 'vue'
+ import { onMounted, ref } from 'vue'
  import { storeToRefs } from 'pinia'
  import CreateCourseModal from './modals/CreateCourseModal.vue'
+ import ConfirmDialog from '@/components/ConfirmDialog.vue'
  
  
  const columns =[
@@ -112,12 +154,20 @@
      format: (val) => `${val}`,
   
    },
+   {
+    name: "action",
+    label: "Action",   
+    required: true,
+    align: "center",
+
+
+  },
 
  
  ]
  
  export default {
-     components:{DataTable, CreateCourseModal},
+     components:{DataTable, CreateCourseModal, ConfirmDialog},
      setup(){
          const courseStore = useCourseStore()
  
@@ -127,9 +177,9 @@
  
          onMounted(()=>{
              courseStore.index()
-         }
-         
-         )
+         });
+
+         const loading = ref(false)
  
  
  
@@ -140,12 +190,24 @@
              onUpdate: (id, attribute, value) => {
                 courseStore.update(id, attribute, value);
               },
-              status
+              onDelete:async(id,close)=>{
+
+                loading.value = true
+                const delay =2000
+                await new Promise((resolve) => setTimeout(resolve, delay));
+                await courseStore.destroy(id)
+                loading.value = false
+                close()
+
+                },
+              status,
+              loading
+
           };
  
  
  
-     },
+     }, 
  
  };
  </script>
