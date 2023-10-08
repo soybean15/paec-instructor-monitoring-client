@@ -161,7 +161,7 @@
         <ConfirmDialog >
 
           <template v-slot:open-button="{open}">
-            <q-btn @click="open" round color="primary" icon="delete" />
+            <q-btn @click="open" round color="red" icon="delete" />
     
           </template>
 
