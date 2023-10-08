@@ -71,6 +71,24 @@ export const useSubjectStore = defineStore('subject', () => {
 
 
     }
+
+
+    const destroy = async(id)=>{
+        status.value= null
+
+        try{
+            const response = await axios.post('api/admin/subject/destroy',{
+                id:id
+            })
+    
+            status.value = response.data      
+        }catch(e){
+            status.value = e.response.data
+
+        }
+    
+
+    }
     const resetStatus=  ()=>{
         status.value= null
     }
@@ -82,7 +100,8 @@ export const useSubjectStore = defineStore('subject', () => {
         addSubject,
         resetStatus,
         index,
-        update
+        update,
+        destroy
     }
 
 })

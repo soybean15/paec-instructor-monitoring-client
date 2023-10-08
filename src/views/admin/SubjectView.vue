@@ -28,6 +28,7 @@
       'year_level',
       'semester',
       'number_of_units',
+      'action'
     ]"
   >
     <template v-slot:top>
@@ -39,6 +40,10 @@
 
     <template v-slot:name="{ props }">
       <q-td :props="props">
+
+        <q-tooltip  anchor="bottom start" self="center start" :offset="[-10,10]">
+        Click to Edit
+        </q-tooltip>
         <div>
           {{ props.row.name }}
           <q-popup-edit
@@ -60,6 +65,9 @@
 
     <template v-slot:description="{ props }">
       <q-td :props="props">
+        <q-tooltip  anchor="bottom start" self="center start" :offset="[-10,10]">
+        Click to Edit
+        </q-tooltip>
         {{ props.row.description }}
         <q-popup-edit
           @update:model-value="onUpdate(props.row.id, 'description', $event)"
@@ -79,6 +87,9 @@
 
     <template v-slot:year_level="{ props }">
       <q-td :props="props">
+        <q-tooltip  anchor="bottom start" self="center start" :offset="[-10,10]">
+        Click to Edit
+        </q-tooltip>
         {{ props.row.year_level }}
         <q-popup-edit
           @update:model-value="onUpdate(props.row.id, 'year_level', $event)"
@@ -98,6 +109,9 @@
 
     <template v-slot:semester="{ props }">
       <q-td :props="props">
+        <q-tooltip  anchor="bottom start" self="center start" :offset="[-10,10]">
+        Click to Edit
+        </q-tooltip>
         {{ props.row.semester }}
         <q-popup-edit
           @update:model-value="onUpdate(props.row.id, 'semester', $event)"
@@ -117,6 +131,9 @@
 
     <template v-slot:number_of_units="{ props }">
       <q-td :props="props">
+        <q-tooltip  anchor="bottom start" self="center start" :offset="[-10,10]">
+        Click to Edit
+        </q-tooltip>
         {{ props.row.number_of_units }}
         <q-popup-edit
           @update:model-value="
@@ -135,22 +152,58 @@
         </q-popup-edit>
       </q-td>
     </template>
+
+    <template v-slot:action="{props}">
+
+      <q-td :props="props">
+
+
+        <ConfirmDialog >
+
+          <template v-slot:open-button="{open}">
+            <q-btn @click="open" round color="red" icon="delete" />
+    
+          </template>
+
+          <template v-slot:title>
+            <div class="font-bold text-lg "> Delete Subject </div>
+
+          </template>
+          <template v-slot:message>
+            <div class=" text-md text-grey-9 my-5"> Are you sure you want to delete {{ props.row.name }}? </div>
+
+          </template>
+          <template v-slot:buttons="{close}">
+            <div class="row justify-end my-4">
+              <q-btn :loading="loading"  @click="onDelete(props.row.id,close)" class="mx-1" dense  color="red" label="Confirm" />
+            <q-btn   class="mx-1" @click="close" dense   color="secondary" label="Cancel" />
+            </div>
+           
+          </template>
+
+        </ConfirmDialog>
+
+      
+      </q-td>
+    
+    
+    </template>
   </DataTable>
 </template>
 
 <script >
 import DataTable from "@/components/DataTable.vue";
 import { useSubjectStore } from "@/store/subject";
-
-import { onMounted } from "vue";
+import ConfirmDialog from "@/components/ConfirmDialog.vue";
+import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import CreateSubjectModal from "./modals/CreateSubjectModal.vue";
-
+true
 const columns = [
   {
     name: "name",
     label: "Name",
-
+    field: row => row.name,
     required: true,
     align: "left",
     sortable: true,
@@ -158,44 +211,56 @@ const columns = [
   {
     name: "description",
     label: "Description",
-    field: (row) => row.description,
+
     required: true,
     align: "left",
-    sortable: true,
-    format: (val) => `${val}`,
+
+
   },
   {
     name: "year_level",
     label: "Year Level",
-    field: (row) => row.year_level,
+
     required: true,
-    align: "left",
-    sortable: true,
-    format: (val) => `${val}`,
+    align: "center",
+ 
   },
   {
     name: "semester",
     label: "Semester",
-    field: (row) => row.semester,
+
     required: true,
-    align: "left",
-    sortable: true,
-    format: (val) => `${val}`,
+    align: "center",
+
+   
   },
 
   {
     name: "number_of_units",
     label: "Number of Units",
-    field: (row) => row.number_of_units,
+    field: row => row.number_of_units,
     required: true,
-    align: "left",
+    align: "center",
     sortable: true,
-    format: (val) => `${val}`,
+
+  },
+
+  {
+    name: "action",
+    label: "Action",
+    
+    required: true,
+    align: "center",
+
+
   },
 ];
 
 export default {
-  components: { DataTable, CreateSubjectModal },
+  components: {
+     DataTable,
+     CreateSubjectModal,
+     ConfirmDialog },
   setup() {
     const subjectStore = useSubjectStore();
 
@@ -205,6 +270,8 @@ export default {
       subjectStore.index();
     });
 
+    const loading = ref(false)
+
     return {
       columns,
       subjectStore,
@@ -212,7 +279,18 @@ export default {
       onUpdate: (id, attribute, value) => {
         subjectStore.update(id, attribute, value);
       },
-      status
+      onDelete:async(id,close)=>{
+
+        loading.value = true
+        const delay =2000
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        await subjectStore.destroy(id)
+         loading.value = false
+        close()
+
+      },
+      status,
+      loading
     };
   },
 };
