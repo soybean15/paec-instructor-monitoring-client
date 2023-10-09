@@ -154,7 +154,6 @@
     </template>
 
     <template v-slot:action="{props}">
-
       <q-td :props="props">
 
 

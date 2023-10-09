@@ -21,17 +21,17 @@ export const useDepartmentStore = defineStore('department',  () =>{
 
     const addDepartment = async() =>{
         errors.value=[]
-      try{
+        try{
 
-        const response = await axios.post('api/admin/department/store',
-         departmentForm.value)
+            const response = await axios.post('api/admin/department/store',
+            departmentForm.value)
 
-      }catch(e){
-      
-        if(e.response.status===422){
-            errors.value = e.response.data.errors
+        }catch(e){
+        
+            if(e.response.status===422){
+                errors.value = e.response.data.errors
+            }
         }
-      }
     }
 
     const update= async(id,attribute,value)=>{
@@ -55,6 +55,24 @@ export const useDepartmentStore = defineStore('department',  () =>{
       }
 
 
+      const destroy= async(id)=>{
+        status.value= null
+
+        try{
+            const response = await axios.post('api/admin/department/destroy',{
+                id:id
+            })
+    
+            status.value = response.data      
+        }catch(e){
+            status.value = e.response.data
+
+        }
+    
+
+
+      }
+
         const resetStatus=  ()=>{
             status.value= null
         }
@@ -69,7 +87,8 @@ export const useDepartmentStore = defineStore('department',  () =>{
         addDepartment,
         status,
         update,
-        resetStatus
+        resetStatus,
+        destroy
         
 
     }
