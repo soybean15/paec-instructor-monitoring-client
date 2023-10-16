@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import router from '@/router'
+import { useCourseStore } from './course'
 
 
 export const useSubjectStore = defineStore('subject', () => {
@@ -18,10 +19,15 @@ export const useSubjectStore = defineStore('subject', () => {
         description:'',
         year_level:null,
         semester:null,
+        course_id:null,
         number_of_units:0
 
 
     })
+
+    const courseStore = useCourseStore()
+
+    const {courses} = storeToRefs(courseStore)
 
     const errors = ref([])
     const status =ref(null)
@@ -30,6 +36,8 @@ export const useSubjectStore = defineStore('subject', () => {
 
         const response = await axios.get('api/admin/subject')
         subjects.value = response.data.subjects
+
+        await courseStore.index()
     }
     const paginate = async(link)=>{
 
@@ -103,6 +111,7 @@ export const useSubjectStore = defineStore('subject', () => {
         subjectForm,
         errors,
         status,
+        courses,
         addSubject,
         resetStatus,
         index,
