@@ -21,7 +21,7 @@
   </q-banner>
   <DataTable
     :columns="columns"
-    :rows="subjects"
+    :rows="subjects.data"
     :cells="[
       'name',
       'description',
@@ -30,7 +30,16 @@
       'number_of_units',
       'action'
     ]"
+    :links="subjects.links"
+    :onChangePage="onChangePage"
   >
+
+
+  <template v-slot:bottom>
+
+<div>TEst</div>
+
+</template>
     <template v-slot:top>
       <div class="row text-lg font-semibold justify-between w-full">
         <span>Subject</span>
@@ -188,7 +197,14 @@
     
     
     </template>
+
+
+
   </DataTable>
+
+
+  
+
 </template>
 
 <script >
@@ -198,6 +214,8 @@ import ConfirmDialog from "@/components/ConfirmDialog.vue";
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import CreateSubjectModal from "./modals/CreateSubjectModal.vue";
+
+import CustomPagination from '@/components/CustomPagination.vue';
 true
 const columns = [
   {
@@ -260,7 +278,10 @@ export default {
   components: {
      DataTable,
      CreateSubjectModal,
-     ConfirmDialog },
+     ConfirmDialog ,
+     CustomPagination
+    },
+     
   setup() {
     const subjectStore = useSubjectStore();
 
@@ -290,7 +311,16 @@ export default {
 
       },
       status,
-      loading
+      loading,
+      onChangePage:(link)=>{
+
+           
+        subjectStore.paginate(link)
+
+        
+
+
+      }
     };
   },
 };

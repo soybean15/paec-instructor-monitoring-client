@@ -31,6 +31,12 @@ export const useSubjectStore = defineStore('subject', () => {
         const response = await axios.get('api/admin/subject')
         subjects.value = response.data.subjects
     }
+    const paginate = async(link)=>{
+
+        const response = await axios.get(link)
+        subjects.value = response.data.subjects
+
+    }
 
 
     const addSubject = async()=>{
@@ -101,7 +107,8 @@ export const useSubjectStore = defineStore('subject', () => {
         resetStatus,
         index,
         update,
-        destroy
+        destroy,
+        paginate
     }
 
 })

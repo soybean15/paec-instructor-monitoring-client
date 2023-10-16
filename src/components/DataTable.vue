@@ -42,14 +42,7 @@
           </template>
           <template v-slot:bottom>
             <div class="row w-full justify-end">
-              <q-pagination
-                v-model="current"
-                color="purple"
-                :max="pagination.max"
-                :max-pages="pagination.max_pages"
-                boundary-numbers
-                v-if="pagination"
-              />
+              <CustomPagination :links='links' @onChange="onChangePage"/>
             </div>
           </template>
         </q-table>
@@ -57,20 +50,14 @@
     </template>
       
       <script>
-    import { ref, watch } from "vue";
+
+
+import CustomPagination from './CustomPagination.vue';
     export default {
-      props: ["rows", "columns", "title", "cells", "pagination"],
-      emits: ["onChangePage"],
-      setup(props, { emit }) {
-        const current = ref(1);
-    
-        watch(current, () => {
-          emit("onChangePage", current.value);
-        });
-    
-        return {
-          current,
-        };
+      components:{CustomPagination},
+      props: ["rows", "columns", "title", "cells", "links","onChangePage"],
+      setup() {
+     
       },
     };
     </script>
