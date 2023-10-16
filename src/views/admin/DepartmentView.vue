@@ -23,11 +23,15 @@
 
          <DataTable 
              :columns="columns" 
-             :rows="departments"
+             :rows="departments.data"
              :cells="[
                 'name',
                 'action',
-             ]" >
+             ]" 
+             :links="departments.links"
+             :onChangePage="onChangePage">
+
+        
  
              <template v-slot:top>
                  <div class="row text-lg font-semibold w-full justify-between">
@@ -163,7 +167,13 @@
 
             },
             status,
-            loading
+            loading,
+            onChangePage:(link)=>{
+
+           
+               departmentStore.paginate(link)
+
+            }
             
          };
  

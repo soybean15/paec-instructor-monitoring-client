@@ -21,12 +21,14 @@
             </template>
           </q-banner>
          <DataTable :columns="columns" 
-                    :rows="courses"
+                    :rows="courses.data"
                     :cells="[
                       'name',
                       'description',
                       'action',
-                    ]" >
+                    ]"
+                    :links="courses.links"
+                    :onChangePage="onChangePage" >
  
              <template v-slot:top>
                 
@@ -201,7 +203,13 @@
 
                 },
               status,
-              loading
+              loading,
+              onChangePage:(link)=>{
+
+           
+                  courseStore.paginate(link)
+
+                }
 
           };
  

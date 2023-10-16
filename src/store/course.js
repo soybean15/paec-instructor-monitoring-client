@@ -20,6 +20,13 @@ export const useCourseStore = defineStore('course', () =>{
         courses.value = response.data.courses
     }
 
+    const paginate = async(link)=>{
+
+        const response = await axios.get(link)
+        courses.value = response.data.courses
+
+    }
+
 
     const addCourse = async()=>{
         errors.value=[]
@@ -89,6 +96,7 @@ export const useCourseStore = defineStore('course', () =>{
         update,
         status,
         destroy,
+        paginate,
 
     }
 
