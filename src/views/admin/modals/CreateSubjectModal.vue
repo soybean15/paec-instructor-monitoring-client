@@ -56,7 +56,7 @@
           label="Number of Units"
         />
 
-        <q-select outlined v-model="subjectForm.course_id" :options="options" label="Outlined" />
+        <q-select outlined v-model="subjectForm.course_id" :options="computedCourses" label="Course" />
 
         <q-input outlined type="textarea" v-model="subjectForm.description" label="description" />
 
@@ -75,13 +75,14 @@
 
 
   </PersistenDialog>
-{{courses}}
+
 </template>
 
 <script>
 import PersistenDialog from "@/components/PersistenDialog.vue";
 import {useSubjectStore} from '@/store/subject'
 import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 export default {
   components: { PersistenDialog },
 
@@ -89,6 +90,18 @@ export default {
 
     const subjectStore = useSubjectStore()
     const {subjectForm,errors ,courses}=storeToRefs(subjectStore)
+
+    const computedCourses = computed(()=>{
+
+
+      if(courses.value.data){
+        return courses.value.data.map((item)=>({
+          label: item.name,
+          value:item.id
+        }))
+      }
+   
+    })
     return {
       yearLevel: [
         { label: "1st Year", value: 1 },
@@ -99,7 +112,8 @@ export default {
       subjectForm,
       subjectStore,
       errors,
-      courses
+      courses,
+      computedCourses
 
     };
   },
