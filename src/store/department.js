@@ -19,6 +19,13 @@ export const useDepartmentStore = defineStore('department',  () =>{
         departments.value = response.data.departments
     }
 
+    const paginate = async(link)=>{
+
+        const response = await axios.get(link)
+        departments.value = response.data.departments
+
+    }
+
     const addDepartment = async() =>{
         errors.value=[]
         try{
@@ -88,7 +95,8 @@ export const useDepartmentStore = defineStore('department',  () =>{
         status,
         update,
         resetStatus,
-        destroy
+        destroy,
+        paginate,
         
 
     }
