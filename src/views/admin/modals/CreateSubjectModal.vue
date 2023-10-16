@@ -56,6 +56,8 @@
           label="Number of Units"
         />
 
+        <q-select outlined v-model="subjectForm.course_id" :options="options" label="Outlined" />
+
         <q-input outlined type="textarea" v-model="subjectForm.description" label="description" />
 
         <div>
@@ -73,7 +75,7 @@
 
 
   </PersistenDialog>
-
+{{courses}}
 </template>
 
 <script>
@@ -86,7 +88,7 @@ export default {
   setup() {
 
     const subjectStore = useSubjectStore()
-    const {subjectForm,errors}=storeToRefs(subjectStore)
+    const {subjectForm,errors ,courses}=storeToRefs(subjectStore)
     return {
       yearLevel: [
         { label: "1st Year", value: 1 },
@@ -96,7 +98,8 @@ export default {
       ],
       subjectForm,
       subjectStore,
-      errors
+      errors,
+      courses
 
     };
   },
