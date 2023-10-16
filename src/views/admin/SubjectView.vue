@@ -28,18 +28,31 @@
       'year_level',
       'semester',
       'number_of_units',
-      'action'
+      'action',
+      'course'
     ]"
     :links="subjects.links"
     :onChangePage="onChangePage"
   >
 
+  <template v-slot:course="{props}">
 
-  <template v-slot:bottom>
+    <q-td :props="props">
 
-<div>TEst</div>
+      <div v-if="props.row.course">
 
-</template>
+        {{props.row.course.name}}
+
+      </div>
+
+      <div v-else>
+        General Education
+
+      </div>
+    </q-td>
+
+  </template>
+
     <template v-slot:top>
       <div class="row text-lg font-semibold justify-between w-full">
         <span>Subject</span>
@@ -224,6 +237,15 @@ const columns = [
     required: true,
     align: "left",
     sortable: true,
+  },
+
+  {
+    name: "course",
+    label: "Course",
+
+    required: true,
+    align: "center",
+ 
   },
   {
     name: "description",

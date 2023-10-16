@@ -101,6 +101,26 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () => import('@/views/admin/DepartmentView.vue'),
         beforeEnter: setActiveNav
+      },
+      {
+        path: '/teacher',
+        name: 'teacher',
+        meta:{owner:'teacher'},
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/admin/TeacherView.vue'),
+        beforeEnter: setActiveNav
+      },
+      {
+        path: '/pending',
+        name: 'pending',
+        meta:{owner:'pending'},
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/admin/PendingView.vue'),
+        beforeEnter: setActiveNav
       }
     ]
   },
