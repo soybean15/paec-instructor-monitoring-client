@@ -112,6 +112,11 @@ import { storeToRefs } from 'pinia'
                 icon: 'co_present'
             },
             {
+                title:'Pending',
+                to: 'pending',
+                icon: 'co_present'
+            },
+            {
                 title:'Roles',
                 to: 'RoleAdmin',
                 icon: 'admin_panel_settings'
