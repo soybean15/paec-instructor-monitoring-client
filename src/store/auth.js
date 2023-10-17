@@ -2,6 +2,7 @@ import axios from 'axios'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import router from '@/router'
+import { useErrorStore } from './error'
 
 
 export const useAuthStore = defineStore('auth', () => {
@@ -20,6 +21,8 @@ export const useAuthStore = defineStore('auth', () => {
 
 
     })
+
+    const errorStore = useErrorStore()
 
     const isAdmin =ref(false)
     
@@ -81,6 +84,14 @@ export const useAuthStore = defineStore('auth', () => {
 
             if(e.response.status === 401){
                 router.push({name:'login'})
+            }
+            if(e.response.status === 403){
+                router.push({name:'error'})
+                errorStore.redirect({
+                    status:e.response.status,
+                    title: 'Unverified Accout',
+                    message: e.response.data.message
+                })
             }
         }
      

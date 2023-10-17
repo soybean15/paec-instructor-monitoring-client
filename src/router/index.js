@@ -43,7 +43,8 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import('@/views/ProfileView.vue'),
-      }
+      },
+      
     ]
   },
   {
@@ -131,7 +132,13 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path:'/error',
+    name:'error',
+    component:()=>import('@/views/ErrorView.vue')
   }
+ 
 ]
 
 const router = createRouter({
