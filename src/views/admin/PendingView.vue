@@ -24,6 +24,18 @@ import DataTable from '@/components/DataTable.vue'
 import { onMounted } from 'vue'
 import {useTeacherStore} from '@/store/teacher'
 
+
+const columns=[
+{
+    name: "name",
+    label: "Name",
+    field: row => row.user.profile,
+    required: true,
+    align: "left",
+    sortable: true,
+  },
+
+]
 export default {
   components: { DataTable },
   setup(){
@@ -34,6 +46,11 @@ export default {
 
         teacherStore.getPending()
     })
+
+
+    return{
+      columns
+    }
   }
 
 }

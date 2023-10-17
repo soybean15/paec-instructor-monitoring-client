@@ -2,6 +2,7 @@ import axios from 'axios'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import router from '@/router'
+import { useErrorStore } from './error'
 
 
 export const useAuthStore = defineStore('auth', () => {
@@ -20,6 +21,8 @@ export const useAuthStore = defineStore('auth', () => {
 
 
     })
+
+    const errorStore = useErrorStore()
 
     const isAdmin =ref(false)
     
@@ -70,7 +73,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
 
-    const getUser = async ()=>{
+    const getUser = async (handleError)=>{
         await axios.get('sanctum/csrf-cookie')
         try{
             const response = await axios.get('api/user')
@@ -79,9 +82,8 @@ export const useAuthStore = defineStore('auth', () => {
             isAdmin.value =  (await axios.get('api/is-admin')).data
         }catch(e){
 
-            if(e.response.status === 401){
-                router.push({name:'login'})
-            }
+            handleError(e)
+           
         }
      
        

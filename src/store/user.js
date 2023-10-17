@@ -14,7 +14,7 @@ export const useUserStore = defineStore('user', () => {
     const getProfile = async()=>{
         const response = await axios.get('api/profile');
 
-      //  user.value.profile = response.data.user
+        user.value.profile = response.data.user
     }
 
 

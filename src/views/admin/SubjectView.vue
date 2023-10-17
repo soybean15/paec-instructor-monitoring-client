@@ -59,7 +59,7 @@
         <div class="row items-center">
           <span>Subject</span>
 
-          <custom-searchbar @onSearch="onSearch"/>
+          <custom-searchbar class="ml-3" @onSearch="onSearch"/>
 
         </div>
        
