@@ -55,7 +55,14 @@
 
     <template v-slot:top>
       <div class="row text-lg font-semibold justify-between w-full">
-        <span>Subject</span>
+
+        <div class="row items-center">
+          <span>Subject</span>
+
+          <custom-searchbar @onSearch="onSearch"/>
+
+        </div>
+       
         <CreateSubjectModal />
       </div>
     </template>
@@ -220,14 +227,17 @@
 </template>
 
 <script >
+
+
+
 import DataTable from "@/components/DataTable.vue";
 import { useSubjectStore } from "@/store/subject";
 import ConfirmDialog from "@/components/ConfirmDialog.vue";
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import CreateSubjectModal from "./modals/CreateSubjectModal.vue";
-
 import CustomPagination from '@/components/CustomPagination.vue';
+import CustomSearchbar from '@/components/CustomSearchBar.vue';
 true
 const columns = [
   {
@@ -300,7 +310,8 @@ export default {
      DataTable,
      CreateSubjectModal,
      ConfirmDialog ,
-     CustomPagination
+     CustomPagination,
+     CustomSearchbar 
     },
      
   setup() {
@@ -338,9 +349,11 @@ export default {
            
         subjectStore.paginate(link)
 
-        
+      },
+      onSearch:(val)=>{
 
-
+        subjectStore.search(val==null?'':val)
+        console.log(val)
       }
     };
   },
