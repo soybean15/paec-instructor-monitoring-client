@@ -103,6 +103,14 @@ export const useSubjectStore = defineStore('subject', () => {
     
 
     }
+
+    const search = async (val)=>{
+        
+        const response = await axios.get(`api/admin/subject/search/?val=${val}`)
+        subjects.value = response.data.subjects
+
+
+    }
     const resetStatus=  ()=>{
         status.value= null
     }
@@ -117,7 +125,8 @@ export const useSubjectStore = defineStore('subject', () => {
         index,
         update,
         destroy,
-        paginate
+        paginate,
+        search
     }
 
 })
