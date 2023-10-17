@@ -81,8 +81,13 @@ export default {
         }
             
         if(e.response.status === 403){
-                router.push({name:'applicationStep'})
+                router.push({name:'applicationStep',params:{step:2}})
         }
+
+        if(e.response.status === 400){
+                router.push({name:'applicationStep',params:{step:3}})
+        }
+            
             
 
 

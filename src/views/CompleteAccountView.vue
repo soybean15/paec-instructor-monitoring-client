@@ -1,6 +1,6 @@
 <template>
 
-    <div> Complete Your Account Creation </div>
+    
     <div class="q-pa-md">
       <q-stepper
         v-model="step"
@@ -25,6 +25,7 @@
           caption="Optional"
           icon="hourglass_bottom"
           :done="step > 2"
+          :disable='step<2'
         >
           <div class="flex">
             We have dispatched an email to your provided email address. Kindly check your email inbox for further details
@@ -37,20 +38,22 @@
           :name="3"
           title="Complete your profile"
           icon="check_circle"
-          disable
+          :disable='step<3'
         >
-          This step won't show up because it is disabled.
+       
         </q-step>
   
         <q-step
           :name="4"
-          title="Create an ad"
+          title="Application complete"
           icon="check_circle"
           disable
         >
-          Try out different ad text to see what brings in the most customers, and learn how to
-          enhance your ads using features like ad extensions. If you run into any problems with
-          your ads, find out how to tell if they're running and how to resolve approval issues.
+
+        <div>
+            Congratulations! You have successfully completed all the necessary steps to create your account. Your account is now ready for use. Welcome aboard!
+        </div>
+        
   
           <q-stepper-navigation>
             <q-btn color="primary" label="Finish" />
@@ -62,12 +65,23 @@
   </template>
   
   <script>
+  
   import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+
   
   export default {
+    component:{},
     setup () {
+        const route = useRoute()
+
+
+        console.log(route.params.step)
+
       return {
-        step: ref(2)
+        step: ref(parseInt(route.params.step))
+        
       }
     }
   }

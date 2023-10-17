@@ -45,7 +45,7 @@ const routes = [
         component: () => import('@/views/ProfileView.vue'),
       }, 
       {
-        path: '/application-step',
+        path: '/application-step/:step',
         name: 'applicationStep',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
