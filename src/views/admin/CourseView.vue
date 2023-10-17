@@ -33,7 +33,12 @@
              <template v-slot:top>
                 
                 <div class="row text-lg font-semibold  justify-between w-full">
-                    <span>Course</span>
+                  <div class="row items-center">
+                           <span>Course</span>
+
+                             <custom-searchbar @onSearch="onSearch"/>
+
+                     </div>
                     <CreateCourseModal/>                 
                  </div>
              </template>
@@ -133,6 +138,7 @@
  import { storeToRefs } from 'pinia'
  import CreateCourseModal from './modals/CreateCourseModal.vue'
  import ConfirmDialog from '@/components/ConfirmDialog.vue'
+ import CustomSearchbar from '@/components/CustomSearchBar.vue';
  
  
  const columns =[
@@ -169,7 +175,7 @@
  ]
  
  export default {
-     components:{DataTable, CreateCourseModal, ConfirmDialog},
+     components:{DataTable, CreateCourseModal, ConfirmDialog, CustomSearchbar },
      setup(){
          const courseStore = useCourseStore()
  
@@ -209,6 +215,11 @@
            
                   courseStore.paginate(link)
 
+                },
+                onSearch:(val)=>{
+
+                  courseStore.search(val==null?'':val)
+                  console.log(val)
                 }
 
           };

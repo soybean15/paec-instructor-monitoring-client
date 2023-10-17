@@ -1,7 +1,8 @@
-<template>
+<template >
   
-  <q-input dense @keydown.enter='onSearch' outlined v-model="text" :label="label ? label: 'Search'" />
-
+   <div class="ml-3"> 
+       <q-input dense @keydown.enter='onSearch' outlined v-model="text" :label="label ? label: 'Search'" />
+    </div>
 </template>
 
 <script>
