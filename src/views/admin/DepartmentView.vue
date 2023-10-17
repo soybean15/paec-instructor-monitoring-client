@@ -35,7 +35,12 @@
  
              <template v-slot:top>
                  <div class="row text-lg font-semibold w-full justify-between">
-                    Department
+                    <div class="row items-center">
+                           <span>Department</span>
+
+                             <custom-searchbar @onSearch="onSearch"/>
+
+                     </div>
                     <CreateDepartmentModal />
                  </div>
              </template>
@@ -108,6 +113,7 @@
  import { storeToRefs } from 'pinia'
  import CreateDepartmentModal from './modals/CreateDepartmentModal.vue'
  import ConfirmDialog from '@/components/ConfirmDialog.vue'
+ import CustomSearchbar from '@/components/CustomSearchBar.vue';
  true
  
  const columns =[
@@ -134,7 +140,7 @@
  ]
  
  export default {
-     components:{DataTable, CreateDepartmentModal, ConfirmDialog},
+     components:{DataTable, CreateDepartmentModal, ConfirmDialog,  CustomSearchbar },
      setup(){
          const departmentStore = useDepartmentStore()
  
@@ -173,6 +179,11 @@
            
                departmentStore.paginate(link)
 
+            },
+            onSearch:(val)=>{
+
+                departmentStore.search(val==null?'':val)
+                console.log(val)
             }
             
          };
