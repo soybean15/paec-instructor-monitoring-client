@@ -64,6 +64,7 @@
 import { onMounted, ref } from "vue";
 import { useAuthStore } from "@/store/auth";
 import { storeToRefs } from "pinia";
+import router from '@/router';
 export default {
   setup() {
     const leftDrawerOpen = ref(false);
@@ -73,7 +74,19 @@ export default {
     const { user,isAdmin } = storeToRefs(authStore);
 
     onMounted(() => {
-      authStore.getUser();
+      authStore.getUser((e)=>{
+
+        if(e.response.status === 401){
+                router.push({name:'login'})
+        }
+            
+        if(e.response.status === 403){
+                router.push({name:'applicationStep'})
+        }
+            
+
+
+      });
     
       console.log(isAdmin.value)
     });

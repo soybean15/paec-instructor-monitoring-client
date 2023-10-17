@@ -73,7 +73,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
 
-    const getUser = async ()=>{
+    const getUser = async (handleError)=>{
         await axios.get('sanctum/csrf-cookie')
         try{
             const response = await axios.get('api/user')
@@ -82,17 +82,8 @@ export const useAuthStore = defineStore('auth', () => {
             isAdmin.value =  (await axios.get('api/is-admin')).data
         }catch(e){
 
-            if(e.response.status === 401){
-                router.push({name:'login'})
-            }
-            if(e.response.status === 403){
-                router.push({name:'error'})
-                errorStore.redirect({
-                    status:e.response.status,
-                    title: 'Unverified Accout',
-                    message: e.response.data.message
-                })
-            }
+            handleError(e)
+           
         }
      
        
