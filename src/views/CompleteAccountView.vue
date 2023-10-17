@@ -41,6 +41,83 @@
           :disable='step<3'
         >
        
+         <div class="flex row justify-center">
+          <q-form class=" rounded-md ">
+       
+            <div class="row justify-center  p-2 " >
+               <div class="col-6 p-3">
+                  <q-input
+                    outlined
+                    v-model="name"
+                    label="First name *"            
+                    class="py-4"   
+                    hint="First Name"     
+                  />
+                  
+
+                  <q-input
+                   outlined
+                    v-model="name"
+                    label="Middle name *" 
+                    hint="Middle Name"                    
+                   class="py-4"    
+                  />
+               </div>
+
+               <div class="col-6 p-3">
+
+                <q-input
+                    outlined
+                    v-model="lastname"
+                    label="Last name *"
+                    hint="Last Name"                  
+                    class="py-4"   
+                  />
+
+                  <q-input
+                    outlined
+                      v-model="contact_number"
+                      label="Contact Number*"
+                      class="py-4"   
+                      hint="Contact Number"      
+                    /> 
+           
+               </div>
+
+               <div class="col-12 p-3">
+                <q-input
+                  outlined
+                    v-model="address"
+                    label="Address*"                 
+                    hint="Address"    
+                  />
+               </div>
+
+               <div class="col-12 p-3">                         
+                  <q-input
+                    outlined=""
+                    v-model="name"
+                    label="Birthdate *"  
+                    hint=" Birthdate"      
+                  >
+
+                  <template v-slot:append>
+                    <q-icon name="event" color="secondary" />
+                  </template>
+                </q-input>
+               </div>
+            
+            </div>
+
+           <div class="row p-5 ">
+              <q-btn color="secondary" label="Submit"  style="width:100px;"/>
+           </div> 
+
+      
+
+    
+         </q-form>
+         </div>
         </q-step>
   
         <q-step
@@ -68,11 +145,14 @@
   
   import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import CreateProfileForm from './children/CreateProfileForm.vue'
+
 
 
   
   export default {
-    component:{},
+ 
+    component:{CreateProfileForm,},
     setup () {
         const route = useRoute()
 
@@ -86,4 +166,3 @@ import { useRoute } from 'vue-router'
     }
   }
   </script>
-  
