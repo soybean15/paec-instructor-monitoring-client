@@ -25,7 +25,7 @@
 
           <q-btn-group outline  v-else>
             <q-btn flat dense :to="{name:'admin'}" label="Administrator" v-if="isAdmin[0]"/>
-            <q-btn flat dense @click="authStore.logout" label="Logout"/>
+            <q-btn flat dense @click="authStore.logout(()=>router.push({name:'login'}))" label="Logout"/>
           </q-btn-group>
 
       
@@ -100,6 +100,7 @@ export default {
 
     return {
       leftDrawerOpen,
+      router,
       user,
       isAdmin,
       authStore,

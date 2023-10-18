@@ -27,19 +27,19 @@ export const useAuthStore = defineStore('auth', () => {
     const isAdmin =ref(false)
     
 
-    const login = async ()=>{
+    const login = async ( callback)=>{
         errors.value =[]
         try{
             await axios.post('login',loginForm.value)
 
-            if( await getUser()){
-                close()
+         //   await getUser()
+             
                 loginForm.value.email =''
                 loginForm.value.password =''
             
-           }
+           
 
-           router.push('/')
+         callback()
         }catch(e){
 
 
@@ -64,12 +64,14 @@ export const useAuthStore = defineStore('auth', () => {
         }
         
     }
-    const logout = async()=>{
+    const logout = async(callback)=>{
         await axios.post('logout')
         user.value= null
         isAdmin.value= false
 
-        getUser()
+
+        callback()
+       
     }
 
 
@@ -82,7 +84,8 @@ export const useAuthStore = defineStore('auth', () => {
             isAdmin.value =  (await axios.get('api/is-admin')).data
         }catch(e){
 
-            handleError(e)
+            if(handleError)
+           handleError(e)
            
         }
      
