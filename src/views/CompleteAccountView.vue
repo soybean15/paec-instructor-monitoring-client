@@ -38,90 +38,39 @@
           :name="3"
           title="Complete your profile"
           icon="check_circle"
+          :done="step > 3"
           :disable='step<3'
         >
        
-         <div class="flex row justify-center">
-          <q-form class=" rounded-md ">
-       
-            <div class="row justify-center  p-2 " >
-               <div class="col-6 p-3">
-                  <q-input
-                    outlined
-                    v-model="name"
-                    label="First name *"            
-                    class="py-4"   
-                    hint="First Name"     
-                  />
-                  
 
-                  <q-input
-                   outlined
-                    v-model="name"
-                    label="Middle name *" 
-                    hint="Middle Name"                    
-                   class="py-4"    
-                  />
-               </div>
+        <CreateProfileForm @onUpdate="onUpdate"/>
+        
+        </q-step>
 
-               <div class="col-6 p-3">
 
-                <q-input
-                    outlined
-                    v-model="lastname"
-                    label="Last name *"
-                    hint="Last Name"                  
-                    class="py-4"   
-                  />
 
-                  <q-input
-                    outlined
-                      v-model="contact_number"
-                      label="Contact Number*"
-                      class="py-4"   
-                      hint="Contact Number"      
-                    /> 
-           
-               </div>
+        <q-step
+          :name="4"
+          title="Upload Profile Photo"
+          icon="check_circle"
+          :done="step > 4"
+          
+        >
 
-               <div class="col-12 p-3">
-                <q-input
-                  outlined
-                    v-model="address"
-                    label="Address*"                 
-                    hint="Address"    
-                  />
-               </div>
-
-               <div class="col-12 p-3">                         
-                  <q-input
-                    outlined=""
-                    v-model="name"
-                    label="Birthdate *"  
-                    hint=" Birthdate"      
-                  >
-
-                  <template v-slot:append>
-                    <q-icon name="event" color="secondary" />
-                  </template>
-                </q-input>
-               </div>
-            
-            </div>
-
-           <div class="row p-5 ">
-              <q-btn color="secondary" label="Submit"  style="width:100px;"/>
-           </div> 
-
-      
-
-    
-         </q-form>
-         </div>
+        <div>
+            Upload your photo
+            <q-stepper-navigation>
+            <q-btn @click="step=5" color="primary" label="Skip" />
+        
+          </q-stepper-navigation>
+        </div>
+        
+  
+  
         </q-step>
   
         <q-step
-          :name="4"
+          :name="5"
           title="Application complete"
           icon="check_circle"
           disable
@@ -146,21 +95,31 @@
   import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import CreateProfileForm from './children/CreateProfileForm.vue'
-
+import { useUserStore} from '@/store/user'
 
 
   
   export default {
  
-    component:{CreateProfileForm,},
+    components:{CreateProfileForm,},
     setup () {
         const route = useRoute()
-
-
+        const userStore = useUserStore()
+        const step = ref(parseInt(route.params.step))
         console.log(route.params.step)
 
       return {
-        step: ref(parseInt(route.params.step))
+        step,
+        onUpdate:()=>{
+
+            userStore.updateProfile(()=>{
+
+              step.value++
+            
+             }); 
+
+
+        }
         
       }
     }

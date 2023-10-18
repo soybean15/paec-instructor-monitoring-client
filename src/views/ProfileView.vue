@@ -20,7 +20,7 @@ export default {
 
       const userStore = useUserStore()
       onMounted(()=>{
-        userStore.getProfile()
+        //userStore.getProfile()
       })
 
     }

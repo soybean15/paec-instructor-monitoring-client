@@ -74,7 +74,7 @@ export const useAuthStore = defineStore('auth', () => {
 
 
     const getUser = async (handleError)=>{
-        await axios.get('sanctum/csrf-cookie')
+      
         try{
             const response = await axios.get('api/user')
             user.value = response.data
@@ -89,6 +89,10 @@ export const useAuthStore = defineStore('auth', () => {
        
     }
 
+    const getToken=async()=>{
+        await axios.get('sanctum/csrf-cookie')
+    }
+
     return { 
         user,
         loginForm,
@@ -98,7 +102,7 @@ export const useAuthStore = defineStore('auth', () => {
         logout,
         register,
         login,
-
+        getToken,
         isAdmin
     }
   })

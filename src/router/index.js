@@ -154,4 +154,39 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach(async (to, from,next) => {
+  const authStore = useAuthStore()
+
+  const {user}= storeToRefs(authStore)
+
+
+
+  if(!user.value || from.name=='applicationStep'){
+    await authStore.getUser((e)=>{
+
+      if(e.response.status === 401){
+              router.push({name:'login'})
+      }
+          
+      if(e.response.status === 403){
+              router.push({name:'applicationStep',params:{step:2}})
+      }
+
+      if(e.response.status === 400){
+              router.push({name:'applicationStep',params:{step:3}})
+      }
+            
+ 
+    });
+  }
+
+  next()
+
+
+
+
+
+
+})
+
 export default router
