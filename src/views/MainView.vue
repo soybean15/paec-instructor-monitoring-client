@@ -74,24 +74,24 @@ export default {
     const { user,isAdmin } = storeToRefs(authStore);
 
     onMounted(() => {
-      authStore.getUser((e)=>{
+      // authStore.getUser((e)=>{
 
-        if(e.response.status === 401){
-                router.push({name:'login'})
-        }
+      //   if(e.response.status === 401){
+      //           router.push({name:'login'})
+      //   }
             
-        if(e.response.status === 403){
-                router.push({name:'applicationStep',params:{step:2}})
-        }
+      //   if(e.response.status === 403){
+      //           router.push({name:'applicationStep',params:{step:2}})
+      //   }
 
-        if(e.response.status === 400){
-                router.push({name:'applicationStep',params:{step:3}})
-        }
+      //   if(e.response.status === 400){
+      //           router.push({name:'applicationStep',params:{step:3}})
+      //   }
             
             
 
 
-      });
+      // });
     
       console.log(isAdmin.value)
     });
