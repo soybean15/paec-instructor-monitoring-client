@@ -161,28 +161,33 @@ router.beforeEach(async (to, from,next) => {
 
 
 
-  if(!user.value || from.name=='applicationStep'){
-    await authStore.getUser((e)=>{
+  console.log('to',to.name)
 
-      if(e.response.status === 401){
-              router.push({name:'login'})
-      }
-          
-      if(e.response.status === 403){
-              router.push({name:'applicationStep',params:{step:2}})
-      }
-
-      if(e.response.status === 400){
-              router.push({name:'applicationStep',params:{step:3}})
-      }
+  console.log('from',from.name)
+    if(!user.value || from.name=='applicationStep'){
+    
+        
+      
+      await authStore.getUser((e)=>{
+  
+        if(e.response.status === 401){
+                //router.push({name:'login'})
+        }
             
- 
-    });
-  }
+        if(e.response.status === 403){
+                router.push({name:'applicationStep',params:{step:2}})
+        }
+  
+        if(e.response.status === 400){
+                router.push({name:'applicationStep',params:{step:3}})
+        }
+              
+   
+     });
+    }
+
 
   next()
-
-
 
 
 

@@ -43,6 +43,8 @@
 import { useAuthStore } from "@/store/auth";
 import { storeToRefs } from "pinia";
 
+import router from '@/router';
+
 export default {
   setup() {
     const authStore = useAuthStore();
@@ -50,7 +52,10 @@ export default {
 
     return {
       onSubmit: () => {
-        authStore.login();
+        authStore.login(()=>{
+
+          router.push({name:'profile'})
+        });
       },
       loginForm,
       errors,
