@@ -157,9 +157,10 @@ const router = createRouter({
 router.beforeEach(async (to, from,next) => {
   const authStore = useAuthStore()
 
-
-
   const {user}= storeToRefs(authStore)
+
+
+
   if(!user.value || from.name=='applicationStep'){
     await authStore.getUser((e)=>{
 
@@ -175,7 +176,7 @@ router.beforeEach(async (to, from,next) => {
               router.push({name:'applicationStep',params:{step:3}})
       }
             
-
+ 
     });
   }
 

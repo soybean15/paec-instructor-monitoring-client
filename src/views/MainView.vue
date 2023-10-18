@@ -74,6 +74,8 @@ export default {
     const { user,isAdmin } = storeToRefs(authStore);
 
     onMounted(() => {
+
+      authStore.getToken()
       // authStore.getUser((e)=>{
 
       //   if(e.response.status === 401){

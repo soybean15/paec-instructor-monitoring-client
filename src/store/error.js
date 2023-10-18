@@ -13,6 +13,10 @@ export const useErrorStore = defineStore('error', () => {
         }
     )
 
+    const errors = ref([])
+
+    
+
     const redirect = (e) => {
 
         error.value = e
@@ -21,10 +25,26 @@ export const useErrorStore = defineStore('error', () => {
 
     }
 
+    const handleError=(callback)=>{
+       
+
+        errors.value = callback(errors)
+        console.log(errors.value)
+
+      
+      
+
+
+    }
+
+
 
     return {
         error,
-        redirect
+        redirect,
+        handleError,
+        errors
+        
     }
 
 
