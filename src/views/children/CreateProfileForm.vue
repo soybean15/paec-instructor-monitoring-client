@@ -11,79 +11,105 @@
     
     -->
   <div class="flex row justify-center">
+
+    <span class="text-red-400">{{ errors}}</span>
     <q-form @submit="onSubmit" class="rounded-md">
       <div class="row items-center">
+
+        <div class="col-6 p-1">
+       
         <q-input
           dense
           outlined
           v-model="userForm.firstname"
           label="First name *"
-          class="py-4"
+          class="py-3"
           hint="First Name"
         />
-
+        <div class="text-red-400">{{ errors.firstname}}</div> 
+      </div>
+      <div class="col-6 p-1">
         <q-input
-          dense
+          dense 
           outlined
           v-model="userForm.lastname"
           label="Last name *"
           hint="Last Name"
-          class="py-4"
+          class="py-3"
         />
+      </div>
       </div>
 
       <div class="row items-center">
+        <div class="col-6 p-1">
         <q-input
           dense
           outlined
           v-model="userForm.middlename"
-          label="Middle name *"
+          label="Middle name "
           hint="Middle Name"
-          class="py-4"
+          class="py-3"
         />
-
+      </div>
+      <div class="col-6 p-1">
         <q-select
           dense
           outlined
           v-model="userForm.gender"
           :options="['Male', 'Female']"
-          label="Outlined"
-          class="py-4"
+          label="Gender *"
+          hint="Gender" 
+          class="py-3"
         />
+      </div>
       </div>
 
       <div class="row items-center">
-        <q-input outlined dense v-model="userForm.birthdate" mask="date" :rules="['date']">
-      <template v-slot:append>
-        <q-icon name="event" class="cursor-pointer">
-          <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-            <q-date v-model="userForm.birthdate">
-              <div class="row items-center justify-end">
-                <q-btn v-close-popup label="Close" color="primary" flat />
-              </div>
-            </q-date>
-          </q-popup-proxy>
-        </q-icon>
-      </template>
-    </q-input>
+        <div class="col-6 p-1">
+          <q-input 
+            outlined 
+            dense 
+            v-model="userForm.birthdate" 
+            mask="date" 
+            :rules="['date']"
+            class="py-3"
+            hint="Birthdate"
+            >
+              <template v-slot:append>
+                    <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-date v-model="userForm.birthdate">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
 
-        <q-input
-          outlined
-          dense
-          v-model="userForm.contact_number"
-          label="Contact Number*"
-          hint="Contact Number"
-        />
+          <div class="col-6 p-1">
+              <q-input
+                outlined
+                dense
+                v-model="userForm.contact_number"
+                label="Contact Number"
+                hint="Contact Number"
+                class="py-3"
+              />
+          </div>
       </div>
 
-      <div class=" ">
+      <div class="p-1 ">
         <q-input
           dense
           outlined
           v-model="userForm.address"
-          label="Address*"
+          label="Address"
           hint="Address"
           type="textarea"
+          class="py-3"
         />
       </div>
 
