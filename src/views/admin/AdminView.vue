@@ -14,23 +14,26 @@
         </q-toolbar>
       </q-header>
   
-      <q-drawer show-if-above v-model="leftDrawerOpen" side="left" behavior="desktop" bordered>
+      <q-drawer show-if-above v-model="leftDrawerOpen" side="left" behavior="desktop" bordered :width="200"  >
         
 
         <div class="p-5 ">
             <div class="text-lg py-2" v-for="item in sidePanelItems" :key="item.title">  
 
-                <div class="row pt-2 text-md text-bold">{{ item.title }}</div>
+                <div class="row text-sm text-bold">{{ item.title }}</div>
                 <div v-for="item in  item.children" :key="item.title">
 
                     <!-- You Can use q-btn here -->
-                    <div class="row items-center pl-5 py-2" :class="{'bg-primary rounded-md text-white' : adminNav_active === item.to}">
+                    <div class="row items-center pl-2 " :class="{'bg-primary rounded-md text-white' : adminNav_active === item.to}">
 
                         <div class="">
-                             <q-icon  color="secondary" size="25px" :name="item.icon" />
+                             <q-icon  color="secondary" size="15px" :name="item.icon" />
                         </div>
-                       <div class="pt-1 ml-3" >
+                       <div class=" text-xs ml-1 row items-center" >
                           <router-link :to="item.to"><span > {{ item.title }} </span></router-link>
+                          <div class="ml-2" v-if="item.to=='pending' && pending">
+                            <q-badge color="red" v-if="pending.length>0">{{pending.length}}</q-badge>
+                          </div>
                        </div>
                      
                     </div>
@@ -65,10 +68,13 @@
   import { ref } from 'vue'
 import { useNavStore } from '@/store/nav'
 import { storeToRefs } from 'pinia'
+import {useTeacherStore} from '@/store/teacher'
   
   export default {
     setup () {
       const leftDrawerOpen = ref(false)
+      const teacherStore = useTeacherStore()
+      const {pending } = storeToRefs(teacherStore)
       const navStore = useNavStore()
       const {adminNav_active}=storeToRefs(navStore)
 
@@ -146,7 +152,8 @@ import { storeToRefs } from 'pinia'
           leftDrawerOpen.value = !leftDrawerOpen.value
         },
         sidePanelItems,
-        adminNav_active
+        adminNav_active,
+        pending
       }
     }
   }
