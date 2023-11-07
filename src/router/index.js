@@ -169,7 +169,7 @@ router.beforeEach(async (to, from,next) => {
       await authStore.getUser((e)=>{
   
         if(e.response.status === 401){
-                //router.push({name:'login'})
+             return
                 
         }
             
