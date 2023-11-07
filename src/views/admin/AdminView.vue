@@ -29,8 +29,11 @@
                         <div class="">
                              <q-icon  color="secondary" size="15px" :name="item.icon" />
                         </div>
-                       <div class=" text-xs ml-1" >
+                       <div class=" text-xs ml-1 row items-center" >
                           <router-link :to="item.to"><span > {{ item.title }} </span></router-link>
+                          <div class="ml-2" v-if="item.to=='pending' && pending">
+                            <q-badge color="red" v-if="pending.length>0">{{pending.length}}</q-badge>
+                          </div>
                        </div>
                      
                     </div>
@@ -65,10 +68,13 @@
   import { ref } from 'vue'
 import { useNavStore } from '@/store/nav'
 import { storeToRefs } from 'pinia'
+import {useTeacherStore} from '@/store/teacher'
   
   export default {
     setup () {
       const leftDrawerOpen = ref(false)
+      const teacherStore = useTeacherStore()
+      const {pending } = storeToRefs(teacherStore)
       const navStore = useNavStore()
       const {adminNav_active}=storeToRefs(navStore)
 
@@ -146,7 +152,8 @@ import { storeToRefs } from 'pinia'
           leftDrawerOpen.value = !leftDrawerOpen.value
         },
         sidePanelItems,
-        adminNav_active
+        adminNav_active,
+        pending
       }
     }
   }
