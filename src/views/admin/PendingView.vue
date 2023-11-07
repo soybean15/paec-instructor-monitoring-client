@@ -29,7 +29,7 @@
           </q-td>
 
           <q-td :key="'birthdate'" :props="props">
-            {{props.row.profile.birthdate}}
+            {{formatDate(props.row.profile.birthdate, 'MMM DD YYYY')}}
 
           </q-td>
           <q-td :key="'contact_number'" :props="props">
@@ -43,8 +43,8 @@
 
           <q-td :key="'action'" :props="props">
             <div class="">
-              <q-btn class="mx-0.5" :label="'Accept'" :color="'secondary'"  dense/>
-              <q-btn class="mx-0.5" :label="'Reject'" :color="'red'"  dense/>
+              <q-btn @click="accept(props.row.id)" class="mx-0.5" :label="'Accept'" :color="'secondary'"  dense/>
+              <q-btn @click="reject(props.row.id)" class="mx-0.5" :label="'Reject'" :color="'red'"  dense/>
             </div>
           </q-td>
         </q-tr>
@@ -78,7 +78,7 @@ const columns=[
     label: "Birth Date",
     field: row => row.profile.birthdate,
     required: true,
-    format:val => formatDate(val, 'MMM DD YYYY'),
+   
     align: "left",
    
   },
@@ -127,6 +127,13 @@ export default {
       columns ,
       pending,
       filter: ref(''),
+      formatDate ,
+      accept:(id)=>{
+        teacherStore.acceptPending(id)
+      },
+      reject:(id)=>{
+        teacherStore.rejectPending(id)
+      }
     }
   }
 

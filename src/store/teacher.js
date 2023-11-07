@@ -16,11 +16,23 @@ export const useTeacherStore = defineStore('teacher', () => {
         pending.value = response.data.pending
 
     }
+    const acceptPending = async(id)=>{
+        await axios.post(`api/admin/teacher/pending/accept/${id}`)
+        pending.value = pending.value.filter(item => item.id !== id);
+    }
+
+    const rejectPending = async(id)=>{
+        await axios.post(`api/admin/teacher/pending/reject/${id}`)
+        pending.value = pending.value.filter(item => item.id !== id);
+    }
+
 
 
     return {
         pending,
-        getPending
+        getPending,
+        acceptPending,
+        rejectPending
     }
 
 
