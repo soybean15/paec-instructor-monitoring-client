@@ -120,22 +120,26 @@
           style="width: 100px"
         />
       </div>
-      <div class="text-red column w-96 items-center justify-center border-2 m-2 border-red-300 py-3 bg-red-100 rounded-sm" v-if="errors.errors">
+      <div
+        class="text-red column w-96 items-center justify-center border-2 m-2 border-red-300 py-3 bg-red-100 rounded-sm"
+        v-if="errors.errors"
+      >
         <div class="column justify-start w-fit">
-          <div v-if="errors.errors.firstname">
-          <div v-for="item in errors.errors.firstname" :key="item">
-            <div class="flex">{{ item }}</div>
-          </div>
-          <div v-for="item in errors.errors.lastname" :key="item">
-            <div class="flex">{{ item }}</div>
-          </div>
-          <div v-for="item in errors.errors.gender" :key="item">
-            <div class="flex">{{ item }}</div>
+          <div >
+            <div v-for="item in errors.errors.firstname" :key="item">
+              <div class="flex">{{ item }}</div>
+            </div>
+            <div v-for="item in errors.errors.lastname" :key="item">
+              <div class="flex">{{ item }}</div>
+            </div>
+            <div v-for="item in errors.errors.gender" :key="item">
+              <div class="flex">{{ item }}</div>
+            </div>
+            <div v-for="item in errors.errors.birthdate" :key="item">
+              <div class="flex">{{ item }}</div>
+            </div>
           </div>
         </div>
-
-        </div>
-       
       </div>
     </q-form>
   </div>

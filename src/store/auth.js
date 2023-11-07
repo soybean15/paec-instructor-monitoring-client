@@ -8,95 +8,99 @@ import { useErrorStore } from './error'
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null)
     const errors = ref([])
-    const loginForm= ref({
-        email:'',
-        password:''
+    const loginForm = ref({
+        email: '',
+        password: ''
     })
 
-    const registerForm =ref({
-        name:'',
-        email:'',
-        password:'',
-        password_confirmation:''
+    const registerForm = ref({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
 
 
     })
 
     const errorStore = useErrorStore()
 
-    const isAdmin =ref(false)
-    
-
-    const login = async ( callback)=>{
-        errors.value =[]
-        try{
-            await axios.post('login',loginForm.value)
-
-         //   await getUser()
-             
-                loginForm.value.email =''
-                loginForm.value.password =''
-            
-           
-
-         callback()
-        }catch(e){
+    const isAdmin = ref(false)
 
 
-            if(e.response && e.response.status ===422){
+    const login = async (callback) => {
+        errors.value = []
+        try {
+            await axios.post('login', loginForm.value)
+
+            //   await getUser()
+
+            loginForm.value.email = ''
+            loginForm.value.password = ''
+
+
+
+            callback()
+        } catch (e) {
+
+
+            if (e.response && e.response.status === 422) {
                 errors.value = e.response.data.errors
-               
+
             }
         }
-       
+
     }
 
 
-    const register = async()=>{
-        errors.value=[]
-        try{
+    const register = async () => {
+        errors.value = []
+        try {
             await axios.post('register', registerForm.value)
-        }catch(e){
+        } catch (e) {
 
-            if(e.response.status ===422){
+            if (e.response.status === 422) {
                 errors.value = e.response.data.errors
             }
         }
-        
+
     }
-    const logout = async(callback)=>{
+    const logout = async (callback) => {
         await axios.post('logout')
-        user.value= null
-        isAdmin.value= false
+        user.value = null
+        isAdmin.value = false
 
 
         callback()
-       
+
     }
 
 
-    const getUser = async (handleError)=>{
-      
-        try{
+    const getUser = async (handleError) => {
+
+        try {
             const response = await axios.get('api/user')
             user.value = response.data
 
-            isAdmin.value =  (await axios.get('api/is-admin')).data
-        }catch(e){
+            isAdmin.value = (await axios.get('api/is-admin')).data
 
-            if(handleError)
-           handleError(e)
-           
+    
+        } catch (e) {
+
+            if (handleError) {
+                handleError(e)
+            }
+
+
         }
-     
-       
+
+
     }
 
-    const getToken=async()=>{
+    const getToken = async () => {
         await axios.get('sanctum/csrf-cookie')
     }
 
-    return { 
+    return {
         user,
         loginForm,
         errors,
@@ -108,4 +112,4 @@ export const useAuthStore = defineStore('auth', () => {
         getToken,
         isAdmin
     }
-  })
+})

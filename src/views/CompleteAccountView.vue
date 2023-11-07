@@ -82,7 +82,7 @@
         
   
           <q-stepper-navigation>
-            <q-btn color="primary" label="Finish" />
+            <q-btn :to="{name:'home'}" color="primary" label="Finish" />
             <q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" />
           </q-stepper-navigation>
         </q-step>
@@ -109,6 +109,7 @@ import { useUserStore} from '@/store/user'
         console.log(route.params.step)
 
       return {
+   
         step,
         onUpdate:()=>{
 

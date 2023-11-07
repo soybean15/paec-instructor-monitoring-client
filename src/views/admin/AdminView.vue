@@ -14,22 +14,22 @@
         </q-toolbar>
       </q-header>
   
-      <q-drawer show-if-above v-model="leftDrawerOpen" side="left" behavior="desktop" bordered>
+      <q-drawer show-if-above v-model="leftDrawerOpen" side="left" behavior="desktop" bordered :width="200"  >
         
 
         <div class="p-5 ">
             <div class="text-lg py-2" v-for="item in sidePanelItems" :key="item.title">  
 
-                <div class="row pt-2 text-md text-bold">{{ item.title }}</div>
+                <div class="row text-sm text-bold">{{ item.title }}</div>
                 <div v-for="item in  item.children" :key="item.title">
 
                     <!-- You Can use q-btn here -->
-                    <div class="row items-center pl-5 py-2" :class="{'bg-primary rounded-md text-white' : adminNav_active === item.to}">
+                    <div class="row items-center pl-2 " :class="{'bg-primary rounded-md text-white' : adminNav_active === item.to}">
 
                         <div class="">
-                             <q-icon  color="secondary" size="25px" :name="item.icon" />
+                             <q-icon  color="secondary" size="15px" :name="item.icon" />
                         </div>
-                       <div class="pt-1 ml-3" >
+                       <div class=" text-xs ml-1" >
                           <router-link :to="item.to"><span > {{ item.title }} </span></router-link>
                        </div>
                      
