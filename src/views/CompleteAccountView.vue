@@ -51,16 +51,36 @@
 
         <q-step
           :name="4"
-          title="Upload Profile Photo"
+          title="Other Details"
           icon="check_circle"
           :done="step > 4"
+          
+        >
+
+        <div class="row justify-center">
+        
+            <SelectDepartment @onSubmit="onSaveDetails"/>
+         
+         
+        </div>
+        
+  
+  
+        </q-step>
+
+
+        <q-step
+          :name="5"
+          title="Upload Profile Photo"
+          icon="check_circle"
+          :done="step > 5"
           
         >
 
         <div>
             Upload your photo
             <q-stepper-navigation>
-            <q-btn @click="step=5" color="primary" label="Skip" />
+            <q-btn @click="step=6" color="primary" label="Skip" />
         
           </q-stepper-navigation>
         </div>
@@ -70,7 +90,7 @@
         </q-step>
   
         <q-step
-          :name="5"
+          :name="6"
           title="Application complete"
           icon="check_circle"
           disable
@@ -97,16 +117,24 @@ import { useRoute } from 'vue-router'
 import CreateProfileForm from './children/CreateProfileForm.vue'
 import { useUserStore} from '@/store/user'
 
+import SelectDepartment from './children/SelectDepartment.vue'
+import { useTeacherStore } from '@/store/teacher'
+import { storeToRefs } from 'pinia'
 
   
   export default {
  
-    components:{CreateProfileForm,},
+    components:{
+      CreateProfileForm,
+      SelectDepartment
+    },
     setup () {
         const route = useRoute()
         const userStore = useUserStore()
+        const teacherStore = useTeacherStore()
         const step = ref(parseInt(route.params.step))
-        console.log(route.params.step)
+        const {user } = storeToRefs(userStore)
+        
 
       return {
    
@@ -119,7 +147,11 @@ import { useUserStore} from '@/store/user'
             
              }); 
 
-
+        } ,
+        onSaveDetails:(value)=>{
+          console.log(value)
+        
+          console.log(user.value.id)
         }
         
       }

@@ -16,6 +16,9 @@ export const useTeacherStore = defineStore('teacher', () => {
         teachers.value= response.data
     }
 
+    const store = async(user_id, department_id)=>{
+        
+    }
     const getPending = async()=>{
 
         const response = await axios.get('api/admin/teacher/pending')

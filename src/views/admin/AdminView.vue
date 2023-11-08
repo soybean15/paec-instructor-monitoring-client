@@ -65,7 +65,7 @@
   </template>
   
   <script>
-  import { ref } from 'vue'
+  import { onMounted, ref } from 'vue'
 import { useNavStore } from '@/store/nav'
 import { storeToRefs } from 'pinia'
 import {useTeacherStore} from '@/store/teacher'
@@ -77,6 +77,10 @@ import {useTeacherStore} from '@/store/teacher'
       const {pending } = storeToRefs(teacherStore)
       const navStore = useNavStore()
       const {adminNav_active}=storeToRefs(navStore)
+
+      onMounted(()=>{
+        teacherStore.getPending()
+      })
 
       const sidePanelItems =[
       {
@@ -144,7 +148,7 @@ import {useTeacherStore} from '@/store/teacher'
 
       ]
 
-      console.log(adminNav_active.value)
+
   
       return {
         leftDrawerOpen,

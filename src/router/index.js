@@ -182,6 +182,10 @@ router.beforeEach(async (to, from,next) => {
                 router.push({name:'applicationStep',params:{step:3}})
                 return
         }
+        if(e.response.status === 399){
+          router.push({name:'applicationStep',params:{step:4}})
+          return
+  }
         router.push({name:'applicationStep',params:{step:4}})
               
    

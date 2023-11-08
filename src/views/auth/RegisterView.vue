@@ -25,6 +25,7 @@
         <q-input
           filled      
           v-model="registerForm.email"
+          type="email"
           label="Email *"
         />
         <span class="text-red-400" v-if="errors.email">{{
