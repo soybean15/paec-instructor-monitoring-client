@@ -1,10 +1,12 @@
 <template>
-  <div class="p-5">
-    <div class="row">
+  <div class=" column items-start p-5">
+    <div class="row mb-5">
 
         <TeacherForm/>
     </div>
+    
 
+    <TeacherTabs/>
   </div>
 </template>
 
@@ -14,8 +16,12 @@ import TeacherForm from './components/TeacherForm.vue'
 import { storeToRefs } from 'pinia'
 import {  useRoute } from 'vue-router'
 import { onMounted } from 'vue'
+import TeacherTabs from './components/TeacherTabs.vue'
 export default {
-    components:{TeacherForm},
+    components:{
+        TeacherForm,
+        TeacherTabs
+    },
     setup(){
 
         const route = useRoute()
