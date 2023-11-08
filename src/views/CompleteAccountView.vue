@@ -148,9 +148,11 @@ import { storeToRefs } from 'pinia'
              }); 
 
         } ,
-        onSaveDetails:(value)=>{
-          console.log(value)
-        
+        onSaveDetails:(val)=>{
+ 
+
+          teacherStore.store(user.value.id, val.value)
+          step.value++
           console.log(user.value.id)
         }
         

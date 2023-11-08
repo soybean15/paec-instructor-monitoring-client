@@ -9,6 +9,7 @@ export const useTeacherStore = defineStore('teacher', () => {
 
     const pending = ref(null)
     const teachers = ref(null)
+    const teacher = ref(null)
 
 
     const index = async ()=>{
@@ -17,7 +18,16 @@ export const useTeacherStore = defineStore('teacher', () => {
     }
 
     const store = async(user_id, department_id)=>{
-        
+        const response = await axios.post('api/teacher',{
+            user_id:user_id,
+            department_id:department_id
+        })
+    }
+
+    const getTeacher=async(id)=>{
+        const response = await axios.get(`api/admin/teacher/${id}`)
+        teacher.value = response.data
+
     }
     const getPending = async()=>{
 
@@ -44,8 +54,11 @@ export const useTeacherStore = defineStore('teacher', () => {
         getPending,
         acceptPending,
         rejectPending,
+        getTeacher,
         index,
-        teachers
+        teachers,
+        teacher,
+        store
     }
 
 
