@@ -15,7 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const registerForm = ref({
         name: '',
-        email: '',
+        email: null,
         password: '',
         password_confirmation: ''
 

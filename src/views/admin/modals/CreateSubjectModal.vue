@@ -21,17 +21,24 @@
 
 
 
-    <template v-slot:content>
-      <q-form @submit="subjectStore.addSubject" @reset="onReset" class="q-gutter-md">
+    <template v-slot:content="{close}">
+      <q-form @submit="onSave(close)" @reset="onReset" class="q-gutter-md">
 
         <span class="text-red-400" v-if="errors.name">{{ errors.name[0] }}</span>
         <q-input
           outlined
           v-model="subjectForm.name"
-          label="Your name *"
-          hint="Name and surname"
-        />
+          label="Name*"
 
+        />
+        <q-input
+          outlined
+          v-model="subjectForm.code"
+          label="Code*"
+
+        />
+        
+     
         <q-select
           outlined
           v-model="subjectForm.year_level"
@@ -113,7 +120,14 @@ export default {
       subjectStore,
       errors,
       courses,
-      computedCourses
+      computedCourses,
+      onSave:(onClose)=>{
+
+        subjectStore.addSubject()
+        onClose()
+
+
+      }
 
     };
   },

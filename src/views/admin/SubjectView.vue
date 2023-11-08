@@ -44,17 +44,18 @@
         'number_of_units',
         'action',
         'course',
+        'code'
       ]"
       :links="subjects.links"
       :onChangePage="onChangePage"
     >
       <template v-slot:course="{ props }">
         <q-td :props="props">
-          <div v-if="props.row.course">
-            {{ props.row.course.name }}
-          </div>
+         
+            {{ props.row.courseName }}
 
-          <div v-else>General Education</div>
+
+       
         </q-td>
       </template>
 
@@ -84,6 +85,35 @@
             <q-popup-edit
               @update:model-value="onUpdate(props.row.id, 'name', $event)"
               v-model="props.row.name"
+              v-slot="scope"
+            >
+              <q-input
+                v-model="scope.value"
+                dense
+                autofocus
+                counter
+                @keyup.enter="scope.set"
+              />
+            </q-popup-edit>
+          </div>
+        </q-td>
+      </template>
+
+
+      <template v-slot:code="{ props }">
+        <q-td :props="props">
+          <q-tooltip
+            anchor="bottom start"
+            self="center start"
+            :offset="[-10, 10]"
+          >
+            Click to Edit
+          </q-tooltip>
+          <div>
+            {{ props.row.code }}
+            <q-popup-edit
+              @update:model-value="onUpdate(props.row.id, 'code', $event)"
+              v-model="props.row.code"
               v-slot="scope"
             >
               <q-input
@@ -264,7 +294,13 @@ const columns = [
     align: "left",
     sortable: true,
   },
+  {
+    name: "code",
+    label: "Code",
 
+    required: true,
+    align: "center",
+  },
   {
     name: "course",
     label: "Course",
@@ -272,6 +308,8 @@ const columns = [
     required: true,
     align: "center",
   },
+
+
   {
     name: "description",
     label: "Description",

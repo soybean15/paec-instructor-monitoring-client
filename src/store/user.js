@@ -58,7 +58,8 @@ export const useUserStore = defineStore('user', () => {
     return {
         getProfile,
         updateProfile,
-        userForm
+        userForm,
+        user
     }
 
 

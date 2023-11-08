@@ -22,9 +22,18 @@
 
 
       <template v-slot:body="props">
-        <q-tr :props="props">
+        <q-tr class="cursor-pointer" @dblclick="router.push({name:'teacherDetails',params:{id:props.row.id}})" :props="props">
           <q-td :key="'name'" :props="props">
             {{props.row.profile.full_name}}
+
+          </q-td>
+          <q-td :key="'department'" :props="props">
+            <div v-if="props.row.teacher.department">
+              {{props.row.teacher.department.name}}
+            </div>
+            <div v-else>
+              No Department
+            </div>
 
           </q-td>
 
@@ -75,6 +84,7 @@ import { onMounted } from 'vue'
 
 import formatDate from '@/util/dateFormat'
 
+import router from '@/router'
 
 const columns=[
 {
@@ -89,6 +99,15 @@ const columns=[
     name: "birthdate",
     label: "Birth Date",
     field: row => row.profile.birthdate,
+    required: true,
+   
+    align: "left",
+   
+  },
+  {
+    name: "department",
+    label: "Department",
+    field: row => row.teacher.department.name,
     required: true,
    
     align: "left",
@@ -137,7 +156,8 @@ export default {
     return {
       teachers,
       columns,
-      formatDate
+      formatDate,
+      router
     }
   }
 

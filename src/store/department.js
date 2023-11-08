@@ -19,6 +19,10 @@ export const useDepartmentStore = defineStore('department',  () =>{
         departments.value = response.data.departments
     }
 
+    const getDepartments = async()=>{
+        const response = await axios.get('api/departments')
+        departments.value = response.data.departments
+    }
     const paginate = async(link)=>{
 
         const response = await axios.get(link)
@@ -106,6 +110,7 @@ export const useDepartmentStore = defineStore('department',  () =>{
         destroy,
         paginate,
         search,
+        getDepartments
         
 
     }

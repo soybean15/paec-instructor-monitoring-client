@@ -30,7 +30,7 @@
                              <q-icon  color="secondary" size="15px" :name="item.icon" />
                         </div>
                        <div class=" text-xs ml-1 row items-center" >
-                          <router-link :to="item.to"><span > {{ item.title }} </span></router-link>
+                          <router-link :to="{ name:item.to}"><span > {{ item.title }} </span></router-link>
                           <div class="ml-2" v-if="item.to=='pending' && pending">
                             <q-badge color="red" v-if="pending.length>0">{{pending.length}}</q-badge>
                           </div>
@@ -65,7 +65,7 @@
   </template>
   
   <script>
-  import { ref } from 'vue'
+  import { onMounted, ref } from 'vue'
 import { useNavStore } from '@/store/nav'
 import { storeToRefs } from 'pinia'
 import {useTeacherStore} from '@/store/teacher'
@@ -77,6 +77,10 @@ import {useTeacherStore} from '@/store/teacher'
       const {pending } = storeToRefs(teacherStore)
       const navStore = useNavStore()
       const {adminNav_active}=storeToRefs(navStore)
+
+      onMounted(()=>{
+        teacherStore.getPending()
+      })
 
       const sidePanelItems =[
       {
@@ -124,7 +128,7 @@ import {useTeacherStore} from '@/store/teacher'
             },
             {
                 title:'Roles',
-                to: 'RoleAdmin',
+                to: 'roles',
                 icon: 'admin_panel_settings'
             }
         ]
@@ -144,7 +148,7 @@ import {useTeacherStore} from '@/store/teacher'
 
       ]
 
-      console.log(adminNav_active.value)
+
   
       return {
         leftDrawerOpen,
