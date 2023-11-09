@@ -51,7 +51,18 @@ export const useTeacherStore = defineStore('teacher', () => {
     }
 
 
-    const addSubjects  = async()=>{
+   
+    const insertSubjects = async(subjects)=>{
+    
+
+        try{
+            await axios.post(`api/admin/teacher/subjects/${teacher.value.teacher.id}`,{
+                subjects:subjects
+            })
+        }catch(e){
+            
+        }
+    
 
     }
 
@@ -61,13 +72,13 @@ export const useTeacherStore = defineStore('teacher', () => {
         getPending,
         acceptPending,
         rejectPending,
-        addSubjects,
+        insertSubjects,
         getTeacher,
         index,
         teachers,
         teacher,
         store,
-        dialog
+        dialog 
     }
 
 
