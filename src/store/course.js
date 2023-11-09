@@ -20,6 +20,12 @@ export const useCourseStore = defineStore('course', () =>{
         courses.value = response.data.courses
     }
 
+    const getCourses = async()=>{
+        const response = await axios.get('api/admin/course/all')
+        const allCourse = { id: null, name: "All" };
+        courses.value = [allCourse, ...response.data.courses];
+    }
+
     const paginate = async(link)=>{
 
         const response = await axios.get(link)
@@ -108,6 +114,7 @@ export const useCourseStore = defineStore('course', () =>{
         destroy,
         paginate,
         search,
+        getCourses
 
     }
 
