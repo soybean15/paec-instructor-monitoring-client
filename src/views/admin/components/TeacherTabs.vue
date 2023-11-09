@@ -21,9 +21,10 @@
           </q-tab-panel>
 
           <q-tab-panel name="subject">
-            <div class="text-h4 q-mb-md">Alarms</div>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>
+            <div class="h-[600px] "> 
+              <SubjectPanel/>
+            </div>
+           
           </q-tab-panel>
 
           <q-tab-panel name="schedules">
@@ -42,13 +43,14 @@
 import { ref } from 'vue';
 
 import SchedulePanel from './SchedulePanel.vue';
+import SubjectPanel from './SubjectPanel.vue';
 export default {
-  components:{SchedulePanel},
+  components:{SchedulePanel,SubjectPanel},
     setup(){
 
 
         return {
-            tab:ref('schedules')
+            tab:ref('subject')
         }
     }
 };

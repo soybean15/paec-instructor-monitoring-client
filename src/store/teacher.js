@@ -10,6 +10,9 @@ export const useTeacherStore = defineStore('teacher', () => {
     const pending = ref(null)
     const teachers = ref(null)
     const teacher = ref(null)
+    const dialog = ref({
+        add:false
+    })
 
 
     const index = async ()=>{
@@ -58,7 +61,8 @@ export const useTeacherStore = defineStore('teacher', () => {
         index,
         teachers,
         teacher,
-        store
+        store,
+        dialog
     }
 
 
