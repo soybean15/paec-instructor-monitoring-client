@@ -26,7 +26,7 @@ import { ref } from 'vue'
 
 import { useTeacherStore } from '@/store/teacher'
 import { storeToRefs } from 'pinia'
-import AddSubjects from '../modals/AddSubjects.vue'
+import AddSubjects from '../modals/AddTeacherSubjects.vue'
  
 export default {
     components:{AddSubjects},

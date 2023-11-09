@@ -40,6 +40,11 @@ export const useSubjectStore = defineStore('subject', () => {
 
         await courseStore.index()
     }
+
+    const getSubjects = async()=>{
+        const response = await axios.get('api/admin/subject/all')
+        subjects.value = response.data.subjects
+    }
     const paginate = async(link)=>{
 
         const response = await axios.get(link)
@@ -127,7 +132,8 @@ export const useSubjectStore = defineStore('subject', () => {
         update,
         destroy,
         paginate,
-        search
+        search,
+        getSubjects
     }
 
 })
