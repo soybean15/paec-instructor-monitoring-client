@@ -29,7 +29,7 @@
               </div>
               <draggable
                 class="h-[400px] overflow-y-auto"
-                v-model="subjects"
+                v-model="availableSubjects"
                 group="subjects"
                 item-key="id"
               >
@@ -97,7 +97,6 @@
 import { useTeacherStore } from "@/store/teacher";
 import draggable from "vuedraggable";
 import { storeToRefs } from "pinia";
-import { useSubjectStore } from "@/store/subject";
 import {  onMounted, ref } from "vue";
 import { useCourseStore } from "@/store/course";
 
@@ -107,11 +106,11 @@ export default {
     const searchText = ref("");
 
     const teacherStore = useTeacherStore();
-    const { dialog,teacher } = storeToRefs(teacherStore);
+    const { dialog,availableSubjects } = storeToRefs(teacherStore);
     const selectedSubjects = ref([]);
 
-    const subjectStore = useSubjectStore();
-    const { subjects } = storeToRefs(subjectStore);
+    // const subjectStore = useSubjectStore();
+    // const { subjects } = storeToRefs(subjectStore);
 
     const courseStore = useCourseStore();
     const { courses } = storeToRefs(courseStore);
@@ -123,20 +122,23 @@ export default {
  
 
     onMounted(() => {
-      subjectStore.getSubjects();
+
       courseStore.getCourses();
+      // teacherStore.getAvailableSubjects()
     });
 
     return {
       dialog,
-      subjects,
+      availableSubjects,
       
       selectedSubjects,
       selectedCourse,
       courses,
-      teacher,
+      
       filterByCourse:(item)=>{
         selectedCourse.value = item
+        console.log(item.id)
+         teacherStore.filterAvailableSubjectsByCourse(item.id)
       },
       onSubmit:()=>{
         teacherStore.insertSubjects(selectedSubjects.value)

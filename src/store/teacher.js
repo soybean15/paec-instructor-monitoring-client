@@ -14,6 +14,7 @@ export const useTeacherStore = defineStore('teacher', () => {
         add:true
     })
 
+    const availableSubjects= ref([])
 
     const index = async ()=>{
         const response = await axios.get('api/admin/teacher')
@@ -30,6 +31,8 @@ export const useTeacherStore = defineStore('teacher', () => {
     const getTeacher=async(id)=>{
         const response = await axios.get(`api/admin/teacher/${id}`)
         teacher.value = response.data
+
+        await getAvailableSubjects()
 
     }
     const getPending = async()=>{
@@ -51,6 +54,22 @@ export const useTeacherStore = defineStore('teacher', () => {
     }
 
 
+    const getAvailableSubjects = async ()=>{
+        const response = await axios.get(`api/admin/teacher/available-subjects/${teacher.value.teacher.id}`)
+        availableSubjects.value = response.data.subjects
+    }
+
+    const filterAvailableSubjectsByCourse = async (course_id)=>{
+        const response = await axios.post(`api/admin/teacher/available-subjects`,{
+            teacher_id: teacher.value.teacher.id,
+            course_id:course_id
+
+        })
+        availableSubjects.value = response.data.subjects
+    }
+
+
+
    
     const insertSubjects = async(subjects)=>{
     
@@ -60,7 +79,7 @@ export const useTeacherStore = defineStore('teacher', () => {
                 subjects:subjects
             })
         }catch(e){
-            
+
         }
     
 
@@ -74,11 +93,14 @@ export const useTeacherStore = defineStore('teacher', () => {
         rejectPending,
         insertSubjects,
         getTeacher,
+        getAvailableSubjects,
+        filterAvailableSubjectsByCourse,
         index,
         teachers,
         teacher,
         store,
-        dialog 
+        dialog,
+        availableSubjects
     }
 
 
