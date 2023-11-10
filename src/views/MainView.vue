@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fFf" class="bg-primary">
+  <q-layout view="hHh lpR fFf" class="bg-">
     <q-header reveal class="bg-primary text-white" height-hint="98">
       <q-toolbar>
         <div class="row justify-between w-full">
@@ -16,31 +16,83 @@
             </q-toolbar-title>
           </div>
 
-
-
           <q-btn-group outline v-if="!user">
-            <q-btn flat dense :to="{name:'login'}" label="Login" />
-            <q-btn flat dense :to="{name:'register'}" label="Register"  />
+            <q-btn flat dense :to="{ name: 'login' }" label="Login" />
+            <q-btn flat dense :to="{ name: 'register' }" label="Register" />
           </q-btn-group>
 
-          <q-btn-group outline  v-else>
-            <q-btn flat dense :to="{name:'admin'}" label="Administrator" v-if="isAdmin[0]"/>
-            <q-btn flat dense @click="authStore.logout(()=>router.push({name:'login'}))" label="Logout"/>
+          <q-btn-group outline v-else>
+            <q-btn
+              flat
+              dense
+              :to="{ name: 'admin' }"
+              label="Administrator"
+              v-if="isAdmin[0]"
+            />
+            <q-btn
+              flat
+              dense
+              @click="authStore.logout(() => router.push({ name: 'login' }))"
+              label="Logout"
+            />
           </q-btn-group>
-
-      
         </div>
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab :to="{name:'home'}" label="Home" />
-        <q-route-tab :to="{name:'profile'}" label="Profile" />
+        <q-route-tab :to="{ name: 'home' }" label="Home" />
+        <q-route-tab :to="{ name: 'profile' }" label="Profile" />
         <q-route-tab to="/page3" label="Page Three" />
       </q-tabs>
     </q-header>
 
-    <q-drawer class="bg-primary" v-model="leftDrawerOpen" side="left" overlay bordered>
-      <!-- drawer content -->
+    <q-drawer
+      class=""
+      :width="250"
+      v-model="leftDrawerOpen"
+      side="left"
+      overlay
+      bordered
+    >
+      <q-img
+        class="absolute-top"
+        src="https://cdn.quasar.dev/img/material.png"
+        style="height: 150px"
+      v-if="user">
+        <div class="absolute-bottom bg-transparent">
+          <q-avatar size="56px" class="q-mb-sm">
+            <img :src="user.profile.image" />
+          </q-avatar>
+          <div class="text-weight-bold">{{user.profile.full_name}}</div>
+          <div>{{user.email}}</div>
+        </div>
+      </q-img>
+      <q-scroll-area
+        style="
+          height: calc(100% - 150px);
+          margin-top: 150px;
+          border-right: 1px solid #ddd;
+        "
+        
+      >
+        <q-list padding class="">
+          <q-item
+            clickable
+            :to="{ name: item.to }"
+            v-ripple
+            v-for="item in sideNav"
+            :key="item.name"
+          >
+            <q-item-section avatar>
+              <q-icon name="inbox" />
+            </q-item-section>
+
+            <q-item-section>
+              {{ item.name }}
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
@@ -64,38 +116,32 @@
 import { onMounted, ref } from "vue";
 import { useAuthStore } from "@/store/auth";
 import { storeToRefs } from "pinia";
-import router from '@/router';
+import router from "@/router";
 export default {
   setup() {
     const leftDrawerOpen = ref(false);
-   
 
     const authStore = useAuthStore();
-    const { user,isAdmin } = storeToRefs(authStore);
+    const { user, isAdmin } = storeToRefs(authStore);
+
+    const sideNav = [
+      {
+        name: "Classes",
+        to: "classes",
+      },
+
+      {
+        name: "Subjects",
+        to: "subjects",
+      },
+      {
+        name: "Schedule",
+        to: "schedule",
+      },
+    ];
 
     onMounted(() => {
-
-      authStore.getToken()
-      // authStore.getUser((e)=>{
-
-      //   if(e.response.status === 401){
-      //           router.push({name:'login'})
-      //   }
-            
-      //   if(e.response.status === 403){
-      //           router.push({name:'applicationStep',params:{step:2}})
-      //   }
-
-      //   if(e.response.status === 400){
-      //           router.push({name:'applicationStep',params:{step:3}})
-      //   }
-            
-            
-
-
-      // });
-    
-      console.log(isAdmin.value)
+      authStore.getToken();
     });
 
     return {
@@ -107,6 +153,7 @@ export default {
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
+      sideNav,
     };
   },
 };
