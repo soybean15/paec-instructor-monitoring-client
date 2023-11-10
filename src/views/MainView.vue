@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fFf" class="bg-primary">
+  <q-layout view="hHh lpR fFf" class="bg-">
     <q-header reveal class="bg-primary text-white" height-hint="98">
       <q-toolbar>
         <div class="row justify-between w-full">
@@ -39,8 +39,23 @@
       </q-tabs>
     </q-header>
 
-    <q-drawer class="bg-primary" v-model="leftDrawerOpen" side="left" overlay bordered>
-      <!-- drawer content -->
+    <q-drawer class=""  :width="200" v-model="leftDrawerOpen" side="left" overlay bordered>
+     
+      <q-scroll-area class="fit">
+          <q-list padding class="">
+
+            <q-item clickable :to="{name:item.to}" v-ripple v-for="item in sideNav" :key="item.name">
+              <q-item-section avatar>
+                <q-icon name="inbox" />
+              </q-item-section>
+
+              <q-item-section>
+                {{item.name}}
+              </q-item-section>
+            </q-item>
+
+          </q-list>
+        </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
@@ -73,29 +88,30 @@ export default {
     const authStore = useAuthStore();
     const { user,isAdmin } = storeToRefs(authStore);
 
+
+    const sideNav = [
+
+      {
+        name: "Classes",
+        to:'classes'
+
+      },
+
+      {
+        name: "Subjects",
+        to:'subjects'
+      },
+      {
+        name: "Schedule",
+        to:'schedule'
+      }
+    ]
+
     onMounted(() => {
 
       authStore.getToken()
-      // authStore.getUser((e)=>{
+   
 
-      //   if(e.response.status === 401){
-      //           router.push({name:'login'})
-      //   }
-            
-      //   if(e.response.status === 403){
-      //           router.push({name:'applicationStep',params:{step:2}})
-      //   }
-
-      //   if(e.response.status === 400){
-      //           router.push({name:'applicationStep',params:{step:3}})
-      //   }
-            
-            
-
-
-      // });
-    
-      console.log(isAdmin.value)
     });
 
     return {
@@ -107,6 +123,7 @@ export default {
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
+      sideNav
     };
   },
 };
