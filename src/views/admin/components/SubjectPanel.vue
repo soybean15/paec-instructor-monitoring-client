@@ -1,49 +1,80 @@
 <template>
-  <div class="w-full  relative  h-full" >
-    <q-fab
-        v-model="fabLeft"
-        class="absolute bottom-10 right-10"
-        vertical-actions-align="right"
-        color="primary"
-        icon="keyboard_arrow_up"
-        direction="up"
-      >
-  
-        <q-fab-action label-position="right" color="primary" @click="onClick" icon="mail" label="Email" />
-     
-        <q-fab-action label-position="right" color="secondary" @click="onClick" icon="alarm" label="Alarm" />
-        <q-fab-action label-position="right" color="orange" @click="onClick" icon="airplay" label="Airplay" />
-        <q-fab-action label-position="right" color="accent" @click="dialog.add = true" icon="room" label="Map" />
-      </q-fab>
+  <div class="w-full relative h-full">
+    <div class="row w-full justify-between px-5">
+      <div class="text-h6 font-bold text-primary">Subjects</div>
+      <div>
+        <span class="pr-5">
+          <span class="font-secondary"> School Year:</span>
+          <span class="font-bold"> {{schoolInfo.school_year}}</span>
+        </span>
+        <span >
+          <span class="font-secondary"> Semester:</span>
+          <span class="font-bold"> {{schoolInfo.semester}}</span>
+        </span>
+      
+      </div>
+    </div>
+    <div class="row" v-if="teacher">
+      <div class="p-3 col-4 " v-for="item in teacher.teacher.subjects">
+        <q-card
+          class=" text-white h-40"
+          style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
+        >
+          <q-card-section class="relative" >
+            <q-avatar size="1.7em" color="primary " class="absolute cursor-pointer opacity-90 top-2 right-2" text-color="white" icon="info" >
+              <q-tooltip class="bg-primary w-40" :offset="[10, 10]">
+         {{item.subject.description}}
+        </q-tooltip>
+            </q-avatar>
+            <div class="text-lg flex font-bold">{{item.subject_name}}</div>
+            <div class="flex"> <span class="mr-2"> Code </span>{{item.subject.code}}</div>
+            <div class="flex"> <span class="mr-2"> Year Level </span>{{item.subject.year_level}}</div>
+            <div class="flex"> <span class="mr-2"> Semester </span>{{item.subject.semester}}</div>
+            <div class="flex"> <span class="mr-2"> Number of Unit </span>{{item.subject.number_of_units}}</div>
+          </q-card-section>
 
-     <AddSubjects/>
+          <q-card-section class="q-pt-none">
+            {{ lorem }}
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
 
+    <q-btn
+      @click="dialog.add = true"
+      class="absolute bottom-10 right-10"
+      fab
+      icon="add"
+      
+      color="secondary"
+    />
+
+    <AddSubjects />
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
 
-import { useTeacherStore } from '@/store/teacher'
-import { storeToRefs } from 'pinia'
-import AddSubjects from '../modals/AddTeacherSubjects.vue'
- 
+
+import { useTeacherStore } from "@/store/teacher";
+import { storeToRefs } from "pinia";
+import AddSubjects from "../modals/AddTeacherSubjects.vue";
+
 export default {
-    components:{AddSubjects},
+  components: { AddSubjects },
 
-    setup(){
+  setup() {
+    const teacherStore = useTeacherStore();
+    const { dialog, teacher, schoolInfo } = storeToRefs(teacherStore);
 
-        const teacherStore = useTeacherStore()
-        const {dialog} =storeToRefs(teacherStore)
-        
-        return{
-            fabLeft: ref(false),
-            dialog
-        }
-    }
-}
+    return {
+      teacher,
+      dialog,
+      schoolInfo
+    };
+  },
+};
 </script>
 
 <style>
-
 </style>

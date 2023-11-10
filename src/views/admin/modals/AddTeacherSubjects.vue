@@ -21,7 +21,15 @@
                 <div class="row">
                   <span class="px-2 font-secondary">Filter </span>
                   <div class="row w-56 overflow-auto">
-                    <div class="px-2 mx-0.5 cursor-pointer rounded-md text-secondary" @click="filterByCourse(item)" v-for="item in courses" :key="item.id" :class="{'bg-secondary text-white': item.id == selectedCourse.id}">
+                    <div
+                      class="px-2 mx-0.5 cursor-pointer rounded-md text-secondary"
+                      @click="filterByCourse(item)"
+                      v-for="item in courses"
+                      :key="item.id"
+                      :class="{
+                        'bg-secondary text-white': item.id == selectedCourse.id,
+                      }"
+                    >
                       {{ item.name }}
                     </div>
                   </div>
@@ -35,6 +43,7 @@
               >
                 <template v-slot:item="{ element }">
                   <div
+                    @dblclick="selectItem(element)"
                     class="m-1 p-1 cursor-pointer bg-primary text-white px-4 shadow-md rounded-md"
                   >
                     <div class="row justify-between w-full">
@@ -62,6 +71,7 @@
                 >
                 <template v-slot:item="{ element }">
                   <div
+                  @dblclick="removeItem(element)"
                     class="m-1 p-1 cursor-pointer bg-primary text-white px-4 shadow-md rounded-md"
                   >
                     <div class="row justify-between w-full">
@@ -79,14 +89,13 @@
             </div>
 
             <div class="row w-full justify-end py-2">
-              <q-btn  @click="onSubmit" label="submit"  color="secondary"/> 
+              <q-btn @click="onSubmit" label="submit" color="secondary" />
             </div>
           </div>
-
         </q-card-section>
 
         <q-card-actions align="right" class="bg-white text-teal">
-          <q-btn flat label="OK" v-close-popup />
+          <q-btn flat label="Close" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -97,7 +106,7 @@
 import { useTeacherStore } from "@/store/teacher";
 import draggable from "vuedraggable";
 import { storeToRefs } from "pinia";
-import {  onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useCourseStore } from "@/store/course";
 
 export default {
@@ -106,7 +115,7 @@ export default {
     const searchText = ref("");
 
     const teacherStore = useTeacherStore();
-    const { dialog,availableSubjects } = storeToRefs(teacherStore);
+    const { dialog, availableSubjects } = storeToRefs(teacherStore);
     const selectedSubjects = ref([]);
 
     // const subjectStore = useSubjectStore();
@@ -115,14 +124,11 @@ export default {
     const courseStore = useCourseStore();
     const { courses } = storeToRefs(courseStore);
     const selectedCourse = ref({
-      id:null,
-      name:"All"
+      id: null,
+      name: "All",
     });
 
- 
-
     onMounted(() => {
-
       courseStore.getCourses();
       // teacherStore.getAvailableSubjects()
     });
@@ -130,19 +136,34 @@ export default {
     return {
       dialog,
       availableSubjects,
-      
+
       selectedSubjects,
       selectedCourse,
       courses,
-      
-      filterByCourse:(item)=>{
-        selectedCourse.value = item
-        console.log(item.id)
-         teacherStore.filterAvailableSubjectsByCourse(item.id)
+
+      filterByCourse: (item) => {
+        selectedCourse.value = item;
+        console.log(item.id);
+        teacherStore.filterAvailableSubjectsByCourse(item.id);
       },
-      onSubmit:()=>{
-        teacherStore.insertSubjects(selectedSubjects.value)
-      }
+      onSubmit: () => {
+        teacherStore.insertSubjects(selectedSubjects.value);
+        dialog.value.add = false
+      },
+      selectItem: (element) => {
+        const index = availableSubjects.value.indexOf(element);
+        if (index !== -1) {
+          availableSubjects.value.splice(index, 1);
+          selectedSubjects.value.push(element);
+        }
+      },
+      removeItem: (element) => {
+        const index = selectedSubjects.value.indexOf(element);
+        if (index !== -1) {
+          selectedSubjects.value.splice(index, 1);
+          availableSubjects.value.push(element);
+        }
+      },
     };
   },
 };
