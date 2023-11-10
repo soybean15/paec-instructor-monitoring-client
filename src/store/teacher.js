@@ -13,6 +13,10 @@ export const useTeacherStore = defineStore('teacher', () => {
     const dialog = ref({
         add:false
     })
+    const schoolInfo= ref({
+        school_year:null,
+        semester:null
+    })
 
     const availableSubjects= ref([])
 
@@ -30,7 +34,10 @@ export const useTeacherStore = defineStore('teacher', () => {
 
     const getTeacher=async(id)=>{
         const response = await axios.get(`api/admin/teacher/${id}`)
-        teacher.value = response.data
+        teacher.value = response.data.teacher
+        schoolInfo.value.semester = response.data.current_semester
+        schoolInfo.value.school_year = response.data.current_school_year
+
 
         await getAvailableSubjects()
 
@@ -100,7 +107,8 @@ export const useTeacherStore = defineStore('teacher', () => {
         teacher,
         store,
         dialog,
-        availableSubjects
+        availableSubjects,
+        schoolInfo
     }
 
 

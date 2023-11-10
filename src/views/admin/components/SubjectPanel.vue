@@ -1,5 +1,19 @@
 <template>
   <div class="w-full relative h-full">
+    <div class="row w-full justify-between px-5">
+      <div class="text-h6 font-bold text-primary">Subjects</div>
+      <div>
+        <span class="pr-5">
+          <span class="font-secondary"> School Year:</span>
+          <span class="font-bold"> {{schoolInfo.school_year}}</span>
+        </span>
+        <span >
+          <span class="font-secondary"> Semester:</span>
+          <span class="font-bold"> {{schoolInfo.semester}}</span>
+        </span>
+      
+      </div>
+    </div>
     <div class="row" v-if="teacher">
       <div class="p-3 col-4 " v-for="item in teacher.teacher.subjects">
         <q-card
@@ -31,7 +45,8 @@
       class="absolute bottom-10 right-10"
       fab
       icon="add"
-      color="accent"
+      
+      color="primary"
     />
 
     <AddSubjects />
@@ -50,11 +65,12 @@ export default {
 
   setup() {
     const teacherStore = useTeacherStore();
-    const { dialog, teacher } = storeToRefs(teacherStore);
+    const { dialog, teacher, schoolInfo } = storeToRefs(teacherStore);
 
     return {
       teacher,
       dialog,
+      schoolInfo
     };
   },
 };
