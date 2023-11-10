@@ -46,7 +46,7 @@
       fab
       icon="add"
       
-      color="primary"
+      color="secondary"
     />
 
     <AddSubjects />
