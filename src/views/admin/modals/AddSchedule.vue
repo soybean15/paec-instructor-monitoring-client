@@ -1,55 +1,68 @@
 <template>
-    <div class="">
-     
-  
-      <q-dialog v-model="dialog.schedule" persistent transition-show="scale" transition-hide="scale">
-        <q-card class="" style="width: 800px; max-width: 80vh">
-          <q-card-section>
-            <div class="text-h6">Schedules</div>
-          </q-card-section>
-  
-          <q-card-section class="q-pt-none">
-            <div class="column">
-                <div class="w-full  row justify-end">
-                    <q-btn color="secondary" label="Add Schedule"/> 
-
-                </div>
-                
-
-
-            </div>
-          </q-card-section>
-  
-          <q-card-actions align="right" class="bg-white text-teal">
-            <q-btn flat label="close" v-close-popup />
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
-    </div>
-  </template>
-  
-  <script>
-  import { ref } from 'vue'
-import { useTeacherStore } from '@/store/teacher'
-import { storeToRefs } from 'pinia'
-import { useScheduleStore } from '@/store/schedule'
-
-  export default {
-   
-    setup () {
-        const teacherStore =useTeacherStore()
-        const scheduleStore = useScheduleStore()
-        const {subject }= storeToRefs(scheduleStore)
-        const {dialog} =storeToRefs(teacherStore)
-
-        console.log('Mounted')
-      return {
-      
-        dialog,
-        subject
-        
+  <slot
+    name="open-button"
+    :open="
+      () => {
+        dialog = true;
       }
-    }
-  }
-  </script>
-  
+    "
+  >
+  </slot>
+  <q-dialog v-model="dialog" persistent>
+    <q-card>
+      <q-card-section class="column">
+        <div>Add New Schedule</div>
+        <q-form>
+          <div class="row">
+            <q-radio
+              v-model="dayModel"
+              checked-icon="task_alt"
+              unchecked-icon="panorama_fish_eye"
+              v-for="day in days"
+              :key="day.val"
+              :val="day.val"
+              :label="day.label"
+            />
+
+            
+          </div>
+        </q-form>
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn @click="dialog = false" label="Cancel" color="primary" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+</template>
+
+<script>
+import { ref } from "vue";
+export default {
+  setup() {
+    const dialog = ref(true);
+    const dayModel = ref(1)
+    const days = [
+      { val: 1, label: "Monday" },
+      { val: 2, label: "Tuesday" },
+      { val: 3, label: "Wednesday" },
+      { val: 4, label: "Thursday" },
+      { val: 5, label: "Friday" },
+      { val: 6, label: "Saturday" },
+    ];
+   
+
+    return {
+      dialog,
+      open: () => {
+        dialog.value = true;
+      },
+      days,
+      dayModel
+    };
+  },
+};
+</script>
+
+<style>
+</style>

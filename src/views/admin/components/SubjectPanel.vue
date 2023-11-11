@@ -66,7 +66,7 @@
     />
 
     <AddSubjects />
-    <AddSchedule class="absolute bottom-3 right-5"/>
+    <SubjectSchedule class="absolute bottom-3 right-5"/>
   </div>
 </template>
 
@@ -74,10 +74,10 @@
 import { useTeacherStore } from "@/store/teacher";
 import { storeToRefs } from "pinia";
 import AddSubjects from "../modals/AddTeacherSubjects.vue";
-import AddSchedule from '../modals/AddSchedule.vue';
+import SubjectSchedule from '../modals/SubjectSchedule.vue';
 import {useScheduleStore} from '@/store/schedule'
 export default {
-  components: { AddSubjects,AddSchedule },
+  components: { AddSubjects,SubjectSchedule },
 
   setup() {
     const scheduleStore = useScheduleStore()
