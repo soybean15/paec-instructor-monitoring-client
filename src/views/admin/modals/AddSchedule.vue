@@ -11,7 +11,7 @@
   <q-dialog v-model="dialog" persistent>
     <q-card>
       <q-card-section class="column">
-        <div>Add New Schedule</div>
+        <div class="text-h5 text-secondary">Add New Schedule</div>
         <q-form>
           <div class="row">
             <q-radio
@@ -23,8 +23,39 @@
               :val="day.val"
               :label="day.label"
             />
+          </div>
 
-            
+          <div class="row">
+            <div class="p-1 col-6">
+              <q-input
+                outlined
+                dense
+                mask="##:##"
+                fill-mask="0"
+                label="Start(24hrs format)"
+                style="max-width: 250px"
+              />
+            </div>
+            <div class="p-1 col-6">
+              <q-input
+                outlined
+                dense
+                mask="##:##"
+                fill-mask="0"
+                label="Start(24hrs format)"
+                style="max-width: 250px"
+              />
+            </div>
+          </div>
+
+          <div class="p-1">
+            <q-input dense outlined label="Section" />
+          </div>
+          <div class="p-1">
+            <q-input dense outlined label="Room" />
+          </div>
+          <div class="row p-1 justify-end">
+            <q-btn label="Submit" color="secondary" type="submit"/>
           </div>
         </q-form>
       </q-card-section>
@@ -41,7 +72,7 @@ import { ref } from "vue";
 export default {
   setup() {
     const dialog = ref(true);
-    const dayModel = ref(1)
+    const dayModel = ref(1);
     const days = [
       { val: 1, label: "Monday" },
       { val: 2, label: "Tuesday" },
@@ -50,7 +81,6 @@ export default {
       { val: 5, label: "Friday" },
       { val: 6, label: "Saturday" },
     ];
-   
 
     return {
       dialog,
@@ -58,7 +88,7 @@ export default {
         dialog.value = true;
       },
       days,
-      dayModel
+      dayModel,
     };
   },
 };
