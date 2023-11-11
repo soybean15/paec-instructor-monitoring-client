@@ -9,7 +9,15 @@
           </q-card-section>
   
           <q-card-section class="q-pt-none">
-           {{subject}}
+            <div class="column">
+                <div class="w-full  row justify-end">
+                    <q-btn color="secondary" label="Add Schedule"/> 
+
+                </div>
+                
+
+
+            </div>
           </q-card-section>
   
           <q-card-actions align="right" class="bg-white text-teal">
@@ -24,18 +32,21 @@
   import { ref } from 'vue'
 import { useTeacherStore } from '@/store/teacher'
 import { storeToRefs } from 'pinia'
+import { useScheduleStore } from '@/store/schedule'
 
   export default {
-    props:['subject'],
+   
     setup () {
         const teacherStore =useTeacherStore()
+        const scheduleStore = useScheduleStore()
+        const {subject }= storeToRefs(scheduleStore)
         const {dialog} =storeToRefs(teacherStore)
 
         console.log('Mounted')
       return {
-        persistent: ref(false),
+      
         dialog,
-    
+        subject
         
       }
     }

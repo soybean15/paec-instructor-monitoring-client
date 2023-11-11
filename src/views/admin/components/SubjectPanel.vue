@@ -34,7 +34,7 @@
 
             
            
-            <q-btn @click="dialog.schedule=true" class="absolute bottom-3 right-5"  color="secondary" label="Schedules"/>
+            <q-btn @click="openSchedule(item)" class="absolute bottom-3 right-5"  color="secondary" label="Schedules"/>
             <div class="text-lg flex font-bold">{{ item.subject_name }}</div>
             <div class="flex">
               <span class="mr-2"> Code </span>{{ item.subject.code }}
@@ -66,7 +66,7 @@
     />
 
     <AddSubjects />
-    <AddSchedule :subject="item" class="absolute bottom-3 right-5"/>
+    <AddSchedule class="absolute bottom-3 right-5"/>
   </div>
 </template>
 
@@ -74,19 +74,25 @@
 import { useTeacherStore } from "@/store/teacher";
 import { storeToRefs } from "pinia";
 import AddSubjects from "../modals/AddTeacherSubjects.vue";
-
 import AddSchedule from '../modals/AddSchedule.vue';
+import {useScheduleStore} from '@/store/schedule'
 export default {
   components: { AddSubjects,AddSchedule },
 
   setup() {
+    const scheduleStore = useScheduleStore()
     const teacherStore = useTeacherStore();
     const { dialog, teacher, schoolInfo } = storeToRefs(teacherStore);
-
+    const {subject}= storeToRefs(scheduleStore)
+ 
     return {
       teacher,
       dialog,
       schoolInfo,
+      openSchedule:(item)=>{
+        dialog.value.schedule = true
+        subject.value = item
+      }
     };
   },
 };
