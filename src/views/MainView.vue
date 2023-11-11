@@ -4,7 +4,7 @@
       <q-toolbar>
         <div class="row justify-between w-full">
           <div class="row items-center">
-            <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+            <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" v-if="user"/>
 
             <q-toolbar-title>
               <q-avatar>
@@ -53,12 +53,12 @@
       side="left"
       overlay
       bordered
-    >
+    v-if="user">
       <q-img
         class="absolute-top"
         src="https://cdn.quasar.dev/img/material.png"
         style="height: 150px"
-      v-if="user">
+      >
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
             <img :src="user.profile.image" />

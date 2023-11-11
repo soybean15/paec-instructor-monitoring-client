@@ -11,7 +11,8 @@ export const useTeacherStore = defineStore('teacher', () => {
     const teachers = ref(null)
     const teacher = ref(null)
     const dialog = ref({
-        add:false
+        add:false,
+        schedule:false
     })
     const schoolInfo= ref({
         school_year:null,
