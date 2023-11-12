@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="row" v-if="teacher">
-      <div class="p-3 col-4" v-for="item in teacher.teacher.subjects">
+      <div class="p-3 col-4" v-for="item in teacher.teacher.current_subjects">
         <q-card
           class="text-white h-40"
           style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"

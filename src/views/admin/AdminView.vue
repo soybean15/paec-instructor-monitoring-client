@@ -137,9 +137,9 @@ import {useTeacherStore} from '@/store/teacher'
         title:'OTHERS',
         children:[
             {
-                title:'Settings',
-                to: 'settings',
-                icon: 'settings'
+                title:'Exit',
+                to: 'home',
+                icon: 'logout'
             },
      
         ]

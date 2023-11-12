@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "@quasar/quasar-ui-qcalendar": "^4.0.0-beta.15",
     "axios": "^1.5.1",
     "core-js": "^3.8.3",
     "pinia": "^2.1.6",
