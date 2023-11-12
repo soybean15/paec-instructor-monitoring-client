@@ -12,7 +12,7 @@ export const useTeacherStore = defineStore('teacher', () => {
     const teacher = ref(null)
     const dialog = ref({
         add:false,
-        schedule:true
+        schedule:false
     })
     const schoolInfo= ref({
         school_year:null,
@@ -63,12 +63,12 @@ export const useTeacherStore = defineStore('teacher', () => {
 
 
     const getAvailableSubjects = async ()=>{
-        const response = await axios.get(`api/admin/teacher/available-subjects/${teacher.value.teacher.id}`)
+        const response = await axios.get(`api/admin/teacher/subject/available/${teacher.value.teacher.id}`)
         availableSubjects.value = response.data.subjects
     }
 
     const filterAvailableSubjectsByCourse = async (course_id)=>{
-        const response = await axios.post(`api/admin/teacher/available-subjects`,{
+        const response = await axios.post(`api/admin/teacher/subject/available`,{
             teacher_id: teacher.value.teacher.id,
             course_id:course_id
 
@@ -83,7 +83,7 @@ export const useTeacherStore = defineStore('teacher', () => {
     
 
         try{
-            await axios.post(`api/admin/teacher/subjects/${teacher.value.teacher.id}`,{
+            await axios.post(`api/admin/teacher/subject/${teacher.value.teacher.id}`,{
                 subjects:subjects
             })
         }catch(e){
