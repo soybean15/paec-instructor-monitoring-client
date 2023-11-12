@@ -28,7 +28,7 @@
           </q-tab-panel>
 
           <q-tab-panel name="schedules">
-            <div class="text-h4 q-mb-md">Movies</div>
+           
            <SchedulePanel/>
           </q-tab-panel>
         </q-tab-panels>

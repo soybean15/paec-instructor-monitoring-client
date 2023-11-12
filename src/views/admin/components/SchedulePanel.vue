@@ -1,17 +1,19 @@
 <template>
-  <div class="row">
+  <div class="row w-full">
    
+    <calendar-agenda/>
   </div>
 
 
 </template>
 
 <script>
-import { ref } from "vue";
-import draggable from "vuedraggable";
+import CalendarAgenda from '@/components/CalendarAgenda.vue';
+
+
 export default {
   components: {
-    draggable,
+    CalendarAgenda
   },
   setup() {
    
