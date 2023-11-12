@@ -1,6 +1,7 @@
 import axios from "axios";
-import { defineStore } from "pinia";
+import { defineStore, storeToRefs } from "pinia";
 import { ref } from "vue";
+import { useErrorStore } from "./error";
 
 
 export const useScheduleStore = defineStore('schedule',()=>{
@@ -15,11 +16,23 @@ export const useScheduleStore = defineStore('schedule',()=>{
         room:null
     })
 
+    const errorStore = useErrorStore()
+    const {errors} = storeToRefs(errorStore)
+
     const addSchedule=async()=>{
-        await axios.post('api/admin/teacher/subject/schedule',{
-            data:scheduleForm.value,
-            teacher_subject_id:subject.value.id
-        })
+        errors.value=[]
+        try{
+            await axios.post('api/admin/teacher/subject/schedule',{
+                data:scheduleForm.value,
+                teacher_subject_id:subject.value.id,
+             
+            })
+            errors.value=[]
+        }catch(e){
+            errors.value = e.response.data
+            console.log(errors.value)
+        }
+
     }
 
 

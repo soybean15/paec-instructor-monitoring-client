@@ -65,6 +65,25 @@
             <q-btn label="Submit" color="secondary" type="submit" />
           </div>
         </q-form>
+
+        <div class="row justify-center">
+          <div
+          class="text-red column w-96 items-center justify-center border-2 m-2 border-red-300 py-3 bg-red-100 rounded-sm"
+          v-if="errors.message"
+        >
+          <div>
+            {{ errors.message }}
+          </div>
+          <div v-if="errors.errors">
+            <div class="flex" v-if="errors.errors.day">{{  errors.errors.day[0]}}</div>
+          <div class="flex" v-if="errors.errors.start">{{  errors.errors.start[0]}}</div>
+          <div class="flex" v-if="errors.errors.end">{{  errors.errors.end[0]}}</div>
+
+          </div>
+          
+        </div>
+        </div>
+       
       </q-card-section>
 
       <q-card-actions align="right">
@@ -78,11 +97,13 @@
 import { ref } from "vue";
 import { useScheduleStore } from "@/store/schedule";
 import { storeToRefs } from "pinia";
+import { useErrorStore } from "@/store/error";
 export default {
   setup() {
-    const dialog = ref(true);
+    const dialog = ref(false);
     const dayModel = ref(1);
-
+    const errorStore = useErrorStore();
+    const { errors } = storeToRefs(errorStore);
     const scheduleStore = useScheduleStore();
     const { scheduleForm, subject } = storeToRefs(scheduleStore);
 
@@ -95,6 +116,8 @@ export default {
       { val: 6, label: "Saturday" },
     ];
 
+    console.log(subject.value)
+
     return {
       dialog,
       open: () => {
@@ -105,9 +128,13 @@ export default {
       submit: () => {
         scheduleStore.addSchedule();
         console.log(scheduleForm.value);
+       if (!errors.messages){
+        dialog.value = false;
+       }
       },
       scheduleForm,
       subject,
+      errors,
     };
   },
 };
