@@ -16,6 +16,8 @@ export const useScheduleStore = defineStore('schedule',()=>{
         room:null
     })
 
+    const agenda = ref(null)
+
     const errorStore = useErrorStore()
     const {errors} = storeToRefs(errorStore)
 
@@ -35,11 +37,17 @@ export const useScheduleStore = defineStore('schedule',()=>{
 
     }
 
+    const getAgenda = async (id)=>{
+        const response = await axios.get(`api/admin/teacher/schedules/${id}`)
+        agenda.value =response.data
+    }
 
     return {
         subject,
         addSchedule,
-        scheduleForm
+        scheduleForm,
+        getAgenda,
+        agenda
      }
 
 

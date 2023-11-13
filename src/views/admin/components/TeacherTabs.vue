@@ -50,7 +50,7 @@ export default {
 
 
         return {
-            tab:ref('subject')
+            tab:ref('schedules')
         }
     }
 };
