@@ -128,7 +128,7 @@ export default {
       submit: () => {
         scheduleStore.addSchedule();
         console.log(scheduleForm.value);
-       if (!errors.messages){
+       if (errors.message){
         dialog.value = false;
        }
       },

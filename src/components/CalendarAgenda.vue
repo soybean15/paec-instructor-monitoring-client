@@ -36,18 +36,7 @@
                   class="justify-start q-ma-sm shadow-5 bg-grey-6"
                   style="margin-top: 25px;"
                 >
-                  <div
-                    v-if="a.avatar"
-                    class="row justify-center"
-                    style="margin-top: 30px; width: 100%;"
-                  >
-                    <q-avatar style="margin-top: -50px; margin-bottom: 10px; font-size: 60px;">
-                      <img
-                        :src="a.avatar"
-                        style="border: #9e9e9e solid 5px;"
-                      >
-                    </q-avatar>
-                  </div>
+               
                   <div class="col-12 q-px-sm">
                     <strong>{{ a.time }}</strong>
                   </div>
@@ -201,18 +190,6 @@
             }
           ]
         },
-        leftColumnOptions: [
-          {
-            id: 'over-due',
-            label: 'Over Due'
-          }
-        ],
-        rightColumnOptions: [
-          {
-            id: 'summary',
-            label: 'Summary'
-          }
-        ]
       }
     },
   
