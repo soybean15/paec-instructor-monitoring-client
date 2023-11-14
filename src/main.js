@@ -9,13 +9,13 @@ import '@/css/index.css'
 import Plugin from '@quasar/quasar-ui-qcalendar/src/QCalendarDay.js'
 import '@quasar/quasar-ui-qcalendar/src/css/calendar-day.sass'
 
-
+import VueCameraLib from 'vue-camera-lib'
 const pinia = createPinia()
 pinia.use(({ store }) => {
     store.router = markRaw(router)
   })
 const app = createApp(App).use(Quasar, quasarUserOptions)
-
+app.use(VueCameraLib)
 app.use(Plugin)
 app.use(pinia)
 app.use(router)
