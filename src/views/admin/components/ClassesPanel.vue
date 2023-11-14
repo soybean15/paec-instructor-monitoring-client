@@ -1,6 +1,6 @@
 <template>
     <div class="q-px-lg q-py-md ">
-      <q-timeline dark color="secondary">
+      <q-timeline  color="secondary">
         <q-timeline-entry heading>Timeline heading</q-timeline-entry>
   
         <q-timeline-entry
