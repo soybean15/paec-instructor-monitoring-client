@@ -73,8 +73,8 @@
 <script>
 import { useTeacherStore } from "@/store/teacher";
 import { storeToRefs } from "pinia";
-import AddSubjects from "../modals/AddTeacherSubjects.vue";
-import SubjectSchedule from '../modals/SubjectSchedule.vue';
+import AddSubjects from '@/views/admin/modals/AddTeacherSubjects.vue'
+import SubjectSchedule from '@/views/admin/modals/SubjectSchedule.vue';
 import {useScheduleStore} from '@/store/schedule'
 export default {
   components: { AddSubjects,SubjectSchedule },

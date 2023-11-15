@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ProfileContainer from './children/ProfileContainer.vue'
+import ProfileContainer from '../children/ProfileContainer.vue'
 import { useUserStore } from '@/store/user';
 import { onMounted } from 'vue';
 

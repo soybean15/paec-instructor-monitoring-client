@@ -39,11 +39,7 @@
         </div>
       </q-toolbar>
 
-      <q-tabs align="left">
-        <q-route-tab :to="{ name: 'home' }" label="Home" />
-        <q-route-tab :to="{ name: 'profile' }" label="Profile" />
-        <q-route-tab to="/page3" label="Page Three" />
-      </q-tabs>
+    
     </q-header>
 
     <q-drawer
@@ -84,7 +80,7 @@
             :key="item.name"
           >
             <q-item-section avatar>
-              <q-icon name="inbox" />
+              <q-icon :name="item.icon" />
             </q-item-section>
 
             <q-item-section>
@@ -117,31 +113,50 @@ import { onMounted, ref } from "vue";
 import { useAuthStore } from "@/store/auth";
 import { storeToRefs } from "pinia";
 import router from "@/router";
+import { useUserStore } from '@/store/user';
 export default {
   setup() {
     const leftDrawerOpen = ref(false);
 
     const authStore = useAuthStore();
-    const { user, isAdmin } = storeToRefs(authStore);
-
+    const {  isAdmin } = storeToRefs(authStore);
+    const userStore = useUserStore()
+    const {user}=storeToRefs(userStore)
     const sideNav = [
+    {
+        name: "Home",
+        to: "home",
+        icon:'home'
+      },
+      
+      {
+        name: "Profile",
+        to: "profile",
+        icon:'person'
+      },
+
       {
         name: "Classes",
         to: "classes",
+        icon:'event'
       },
 
       {
         name: "Subjects",
         to: "subjects",
+        icon:'import_contacts'
       },
+
       {
         name: "Schedule",
         to: "schedule",
+        icon:'event'
       },
     ];
 
     onMounted(() => {
       authStore.getToken();
+      userStore.index()
     });
 
     return {
