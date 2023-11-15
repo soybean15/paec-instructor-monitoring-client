@@ -16,10 +16,8 @@
         >
           <q-tab-panel name="classes">
 
-            <ClassesPanel/>
-           
+            <ClassesPanel/>   
             
-          
           </q-tab-panel>
 
           <q-tab-panel name="subject">
@@ -56,7 +54,7 @@ export default {
 
 
         return {
-            tab:ref('schedules')
+            tab:ref('classes')
         }
     }
 };

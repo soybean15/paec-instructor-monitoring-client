@@ -1,76 +1,84 @@
 <template>
-    <div class="q-px-lg q-py-md ">
-      <q-timeline  color="secondary">
-        <q-timeline-entry heading>Timeline heading</q-timeline-entry>
-  
-        <q-timeline-entry
-          title="Event Title"
-          subtitle="February 22, 1986"
-          avatar="https://cdn.quasar.dev/img/avatar5.jpg"
-        >
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </q-timeline-entry>
-  
-        <q-timeline-entry
-          title="Event Title"
-          subtitle="February 21, 1986"
-          icon="delete"
-        >
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </q-timeline-entry>
-  
-        <q-timeline-entry heading>November, 2017</q-timeline-entry>
-  
-        <q-timeline-entry
-          title="Event Title"
-          subtitle="February 22, 1986"
-        >
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </q-timeline-entry>
-  
-        <q-timeline-entry
-          title="Event Title"
-          subtitle="February 22, 1986"
-        >
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </q-timeline-entry>
-  
-        <q-timeline-entry
-          title="Event Title"
-          subtitle="February 22, 1986"
-          color="orange"
-          icon="done_all"
-        >
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </q-timeline-entry>
-  
-        <q-timeline-entry
-          title="Event Title"
-          subtitle="February 22, 1986"
-        >
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </q-timeline-entry>
-  
-        <q-timeline-entry
-          title="Event Title"
-          subtitle="February 22, 1986"
-        >
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </q-timeline-entry>
-      </q-timeline>
+  <div class="q-px-lg q-py-md">
+    <div class="font-secondary row text-lg font-bold">
+      Today's Classes
+
     </div>
-  </template>
+    <q-timeline color="secondary">
+    
+
+      <q-timeline-entry
+        class="column  my-1 rounded-s-lg"
+       :title="`${formatTime(item.start)} - ${formatTime(item.end)}`"
+        :subtitle="item.subject_name"
+        icon="schedule"
+        v-for="item in todaySchedules" 
+        :key="item.id"
+      >
+        <div class="column items-start">
+          <div>{{item.section}}</div>
+         
+        </div>
+      </q-timeline-entry>
+    </q-timeline>
+  </div>
+</template>
+
+  <script>
+import { useScheduleStore } from "@/store/schedule";
+import { ref, watchEffect } from "vue";
+import { useTeacherStore } from "@/store/teacher";
+import { storeToRefs } from "pinia";
+
+import formatDate from '@/util/dateFormat';
+
+export default {
+  setup() {
+
+
+    const scheduleStore = useScheduleStore();
+    const { todaySchedules } = storeToRefs(scheduleStore);
+
+    const teacherStore = useTeacherStore();
+    const { teacher } = storeToRefs(teacherStore);
+    watchEffect(() => {
+      if (teacher.value) {
+        scheduleStore.getTodaySchedules(teacher.value.teacher.id);
+      }
+    });
+
+
+    return {
+      todaySchedules,
+      formatTime:(time )=>{
+
+        const today = Date.now()
+        let _date  = formatDate(today,'YYYY-MM-DD')
+
+        console.log(_date)
+        return formatDate(`${_date} ${time}`, 'hh mm A')
+   
+
+      },
+      today:Date.now()
+    }
+  },
+};
+</script>
+
+  <style >
+.q-timeline__title {
+  font-weight: bold;
+  margin-block: 5px;
+  display: flex;
+}
+.q-timeline__subtitle {
+  font-size: 1.3em;
+  margin-block: 5px;
+  display: flex;
+}
+
+
+
+</style>
+  
