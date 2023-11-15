@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', () => {
 
 
     const { user } = storeToRefs(authStore)
-
+    const teacher_id = ref(null)
 
     const userForm = ref({
         firstname: null,
@@ -24,10 +24,14 @@ export const useUserStore = defineStore('user', () => {
         contact_number: null,
         address: null
     })
+
+    const classes = ref(null)
+    const schedules = ref(null)
     const index = async () => {
         const response = await axios.get('api/profile');
 
         user.value = response.data.user
+        teacher_id.value = response.data.user.teacher.id
     }
 
     const updateProfile = async (callback) => {
@@ -55,11 +59,28 @@ export const useUserStore = defineStore('user', () => {
     }
 
 
+    const getClasses=async(id)=>{
+
+        const response = await axios.get(`api/classes/${id}`)
+        classes.value = response.data
+
+    }
+    const getSchedules=async(id)=>{
+        const response = await axios.get(`api/schedules/${id}`)
+        schedules.value = response.data
+
+    }
+
     return {
         index,
         updateProfile,
         userForm,
-        user
+        user,
+        getClasses,
+        teacher_id,
+        classes,
+        getSchedules,
+        schedules
     }
 
 

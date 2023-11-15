@@ -79,11 +79,13 @@ export default {
   components: {
     QCalendarAgenda,
   },
+  props:['agendaProps'] ,
 
-  setup() {
+  setup(props) {
     const selectedDate = ref(today());
-    const scheduleStore = useScheduleStore();
-    const { agenda } = storeToRefs(scheduleStore);
+    // const scheduleStore = useScheduleStore();
+    // const { agenda } = storeToRefs(scheduleStore);
+    const agenda = ref(props.agendaProps)
 
     return {
       selectedDate,

@@ -1,7 +1,7 @@
 <template>
   <div class="row w-full">
 
-<calendar-agenda :agenda="agenda"/>
+<calendar-agenda :agendaProps="agenda"/>
   </div>
 
 

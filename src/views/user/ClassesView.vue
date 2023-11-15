@@ -1,46 +1,61 @@
 <template>
-    <div class="q-px-lg q-py-md">
-
-        {{user}}
-      <q-timeline color="secondary">
-        <q-timeline-entry heading>
-          Timeline heading
-        </q-timeline-entry>
-  
-        <q-timeline-entry
-          title="Event Title"
-          subtitle="February 22, 1986"
-        >
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-        </q-timeline-entry>
-  
-      </q-timeline>
-    </div>
-  </template>
+  <div class="q-px-lg q-py-md">
+    <div class="row text-lg font-secondary">Today's Schedule</div>
+    <q-timeline color="secondary ">
+      <q-timeline-entry
+        class="column "
+    
+       
+        icon="schedule"
+        v-for="item in classes"
+        :key="item.id"
+      >
+        <div class="column items-start bg-secondary rounded-lg p-5 text-white ">
+            <div class="text-lg font-bold">{{item.subject_name}} </div>
+            <div class="text-lg font-semibold">{{`${formatTime(item.start)} - ${formatTime(item.end)}`}}</div>
+          <div>{{ item.section }}</div>
+        </div>
+      </q-timeline-entry>
+    </q-timeline>
+  </div>
+</template>
 
 <script>
-import { useUserStore } from '@/store/user'
-import { storeToRefs } from 'pinia'
+import { useUserStore } from "@/store/user";
+import { storeToRefs } from "pinia";
+import { watchEffect } from "vue";
+import formatDate from "@/util/dateFormat";
 export default {
+  setup() {
+    const userStore = useUserStore();
+    const { user, teacher_id, classes } = storeToRefs(userStore);
 
-    setup(){
-        const userStore = useUserStore()
-        const {user}= storeToRefs(userStore)
+    watchEffect(() => {
+      if (teacher_id.value) {
+        userStore.getClasses(teacher_id.value);
+      }
+    });
 
-        return {
-            user
-        }
-    }
-}
+    return {
+      user,
+      classes,
+      formatTime: (time) => {
+        const today = Date.now();
+        let _date = formatDate(today, "YYYY-MM-DD");
+
+        console.log(_date);
+        return formatDate(`${_date} ${time}`, "hh mm A");
+      },
+    };
+  },
+};
 </script>
 
 <style>
-
 .q-timeline__title {
   font-weight: bold;
-  margin-block: 5px;
+  margin-block: 0px;
+  padding-block: 0px;
   display: flex;
 }
 .q-timeline__subtitle {
@@ -49,5 +64,8 @@ export default {
   display: flex;
 }
 
+.q-timeline__dot {
+    margin-top: 17px;
 
+}
 </style>
