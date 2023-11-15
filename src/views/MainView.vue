@@ -135,12 +135,7 @@ export default {
         icon:'person'
       },
 
-      {
-        name: "Classes",
-        to: "classes",
-        icon:'event'
-      },
-
+  
       {
         name: "Subjects",
         to: "subjects",

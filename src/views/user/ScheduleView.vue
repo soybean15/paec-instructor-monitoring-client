@@ -1,7 +1,7 @@
 <template>
       <div>
-        <div> </div>
-        <CalendarAgenda :agendaProps="schedules" />
+     
+        <CalendarAgenda :agendaProps="schedules" v-if="schedules" />
     </div>
 </template>
 
