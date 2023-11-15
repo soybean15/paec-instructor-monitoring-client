@@ -1,7 +1,6 @@
 <template>
   <div class=" column items-start p-5">
     <div class="row mb-5">
-
         <TeacherForm/>
     </div>
     
