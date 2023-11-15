@@ -41,9 +41,9 @@
 
 <script>
 import { ref } from 'vue';
-import ClassesPanel from '../../components/ClassesPanel.vue';
-import SchedulePanel from '../../components/SchedulePanel.vue';
-import SubjectPanel from '../../components/SubjectPanel.vue';
+import ClassesPanel from '@/views/admin/components/ClassesPanel.vue'
+import SchedulePanel from '@/views/admin/components/SchedulePanel.vue';
+import SubjectPanel from '@/views/admin/components/SubjectPanel.vue';
 export default {
   components:{
     SchedulePanel,

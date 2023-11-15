@@ -113,13 +113,15 @@ import { onMounted, ref } from "vue";
 import { useAuthStore } from "@/store/auth";
 import { storeToRefs } from "pinia";
 import router from "@/router";
+import { useUserStore } from '@/store/user';
 export default {
   setup() {
     const leftDrawerOpen = ref(false);
 
     const authStore = useAuthStore();
-    const { user, isAdmin } = storeToRefs(authStore);
-
+    const {  isAdmin } = storeToRefs(authStore);
+    const userStore = useUserStore()
+    const {user}=storeToRefs(userStore)
     const sideNav = [
     {
         name: "Home",
@@ -148,12 +150,13 @@ export default {
       {
         name: "Schedule",
         to: "schedule",
-        icon:'calendar_month'
+        icon:'event'
       },
     ];
 
     onMounted(() => {
       authStore.getToken();
+      userStore.index()
     });
 
     return {
