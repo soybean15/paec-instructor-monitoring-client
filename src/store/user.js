@@ -24,10 +24,10 @@ export const useUserStore = defineStore('user', () => {
         contact_number: null,
         address: null
     })
-    const getProfile = async () => {
+    const index = async () => {
         const response = await axios.get('api/profile');
 
-        user.value.profile = response.data.user
+        user.value = response.data.user
     }
 
     const updateProfile = async (callback) => {
@@ -56,7 +56,7 @@ export const useUserStore = defineStore('user', () => {
 
 
     return {
-        getProfile,
+        index,
         updateProfile,
         userForm,
         user

@@ -1,12 +1,13 @@
 <template>
   <div class="q-px-lg q-py-md ">
-
+{{user}}
   </div>
 </template>
 <script>
-import { useAuthStore } from '@/store/auth';
+
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
+import { useUserStore } from '@/store/user';
 
 
 export default {
@@ -15,13 +16,13 @@ export default {
     
   },
   setup(){
-   
-    const authStore = useAuthStore()
 
-    const {user }= storeToRefs(authStore)
+    const userStore = useUserStore()
+    const {user}=storeToRefs(userStore)
+ 
 
     onMounted(() => {
- 
+      userStore.index()
     })
     return {
       user,
