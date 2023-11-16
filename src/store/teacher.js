@@ -76,9 +76,6 @@ export const useTeacherStore = defineStore('teacher', () => {
         availableSubjects.value = response.data.subjects
     }
 
-
-
-   
     const insertSubjects = async(subjects)=>{
     
 
@@ -88,10 +85,10 @@ export const useTeacherStore = defineStore('teacher', () => {
             })
         }catch(e){
 
-        }
-    
+        }   
 
     }
+
 
 
     return {
@@ -109,7 +106,8 @@ export const useTeacherStore = defineStore('teacher', () => {
         store,
         dialog,
         availableSubjects,
-        schoolInfo
+        schoolInfo,
+        
     }
 
 

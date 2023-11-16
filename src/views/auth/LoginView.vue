@@ -48,13 +48,15 @@ import router from '@/router';
 export default {
   setup() {
     const authStore = useAuthStore();
+    
     const { loginForm, errors } = storeToRefs(authStore);
 
     return {
       onSubmit: () => {
-        authStore.login(()=>{
+        authStore.login(async()=>{
 
-          router.push({name:'profile'})
+
+          router.push({name:'home'})
         });
       },
       loginForm,

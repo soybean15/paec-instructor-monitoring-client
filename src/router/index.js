@@ -4,6 +4,7 @@ import { useAuthStore } from '@/store/auth'
 import { storeToRefs } from 'pinia'
 
 import setActiveNav from '@/composables/setActiveNav'
+import { useUserStore } from '@/store/user'
 
 const routes = [
   {
@@ -189,14 +190,19 @@ router.beforeEach(async (to, from, next) => {
 
 
 
-  console.log('to', to.name)
 
-  console.log('from', from.name)
+  
+  
   if (!user.value || from.name == 'applicationStep') {
+
+    
 
     await authStore.getUser((e) => {
 
       if (e.response.status === 401) {
+        setTimeout(() => {
+          router.push({ name: 'login' });
+      },50);
         return
 
       }
@@ -219,6 +225,14 @@ router.beforeEach(async (to, from, next) => {
 
     });
    
+  }
+
+  if(to.name=='home'){
+
+    const userStore = useUserStore()
+
+    await userStore.index()
+
   }
 
 

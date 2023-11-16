@@ -28,10 +28,15 @@ export const useUserStore = defineStore('user', () => {
     const classes = ref(null)
     const schedules = ref(null)
     const index = async () => {
-        const response = await axios.get('api/profile');
+        try{
+            const response = await axios.get('api/profile');
 
-        user.value = response.data.user
-        teacher_id.value = response.data.user.teacher.id
+            user.value = response.data.user
+            teacher_id.value = response.data.user.teacher.id
+        }catch(e){
+
+        }
+
     }
 
     const updateProfile = async (callback) => {
@@ -71,6 +76,13 @@ export const useUserStore = defineStore('user', () => {
 
     }
 
+
+    const getSubjectSchedule = async(id, callback)=>{
+        const response = await axios.get(`api/subject/schedule/${id}`)
+
+        callback(response)
+  }
+
     return {
         index,
         updateProfile,
@@ -80,7 +92,8 @@ export const useUserStore = defineStore('user', () => {
         teacher_id,
         classes,
         getSchedules,
-        schedules
+        schedules,
+        getSubjectSchedule
     }
 
 
