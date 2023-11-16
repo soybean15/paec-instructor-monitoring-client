@@ -49,6 +49,7 @@
                     </div>
                   </div>
                 </div>
+       
               </transition>
               <q-inner-loading
                 :showing="loading[item.id]"
@@ -81,7 +82,7 @@ export default {
       subjectSchedule,
       beforeShow:async (evt, id) => {
         
-        subjectSchedule.value[id] = null;
+    
 
         loading.value[id] = true;
 
