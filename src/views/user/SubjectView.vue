@@ -11,8 +11,13 @@
           style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
         >
           <q-card-section>
-            <div class="text-h6">Our Changing Planet</div>
-            <div class="text-subtitle2">by John Doe</div>
+            <div class="text-h6 row justify-between">
+              <span>{{item.subject_name}}</span>
+             
+            </div>
+            <div class="flex"> {{`Unit: ${item.subject.number_of_units}`}}</div>
+            <div class="flex"> {{`Year Level: ${item.subject.year_level}`}}</div>
+            <div class="flex"> {{`Semester: ${item.subject.semester}`}}</div>
          
           </q-card-section>
 
