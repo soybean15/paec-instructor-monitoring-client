@@ -76,6 +76,13 @@ export const useUserStore = defineStore('user', () => {
 
     }
 
+
+    const getSubjectSchedule = async(id, callback)=>{
+        const response = await axios.get(`api/subject/schedule/${id}`)
+
+        callback(response)
+  }
+
     return {
         index,
         updateProfile,
@@ -85,7 +92,8 @@ export const useUserStore = defineStore('user', () => {
         teacher_id,
         classes,
         getSchedules,
-        schedules
+        schedules,
+        getSubjectSchedule
     }
 
 
