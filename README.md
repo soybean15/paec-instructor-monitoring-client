@@ -20,4 +20,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 
-![image](https://github.com/soybean15/paec-instructor-monitoring-client/assets/75112014/addcb276-fb80-4c28-bc41-7b9934232752)
+[image](https://github.com/soybean15/paec-instructor-monitoring-client/assets/75112014/0fdb9e27-4b1a-4942-8e73-5169e53c1eff)
