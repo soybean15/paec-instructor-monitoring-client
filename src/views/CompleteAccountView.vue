@@ -68,29 +68,9 @@
   
         </q-step>
 
-
+  
         <q-step
           :name="5"
-          title="Upload Profile Photo"
-          icon="check_circle"
-          :done="step > 5"
-          
-        >
-
-        <div>
-            Upload your photo
-            <q-stepper-navigation>
-            <q-btn @click="step=6" color="primary" label="Skip" />
-        
-          </q-stepper-navigation>
-        </div>
-        
-  
-  
-        </q-step>
-  
-        <q-step
-          :name="6"
           title="Application complete"
           icon="check_circle"
           disable

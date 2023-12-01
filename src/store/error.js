@@ -29,8 +29,7 @@ export const useErrorStore = defineStore('error', () => {
        
 
         errors.value = callback(errors)
-        console.log(errors.value)
-
+      
       
       
     }

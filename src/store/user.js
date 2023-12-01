@@ -33,6 +33,9 @@ export const useUserStore = defineStore('user', () => {
 
             user.value = response.data.user
             teacher_id.value = response.data.user.teacher.id
+            userForm.value = response.data.user.profile
+            
+     
         }catch(e){
 
         }
@@ -42,15 +45,21 @@ export const useUserStore = defineStore('user', () => {
     const updateProfile = async (callback) => {
 
         try {
+            if (userForm.value.image ) {userForm.value.image=null}
             const response = await axios.post(`api/update/${user.value.id}`, userForm.value)
-
-            callback()
+          
+            if(callback){
+                callback()
+            }
+           
 
         } catch (e) {
+            console.log(e)
 
             errorStore.handleError(() => {
 
-                if (e.response.status === 422) {
+               
+                if (e.response && e.response.status === 422) {
 
                     return e.response.data
 
@@ -58,6 +67,40 @@ export const useUserStore = defineStore('user', () => {
 
             })
 
+        }
+
+
+    }
+
+    const uploadPhoto = async(image)=>{
+
+
+        try{
+            const response = await axios.post('api/upload',{
+                id: user.value.id,
+                image: image
+            },{
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+
+            userForm.value.image = response.data.image
+        }catch(error){
+        
+
+            errorStore.handleError(() => {
+
+             
+                if (error && error.response.status === 412) {
+
+                  return error.response.data.errors
+                   
+    
+                }
+
+            })
+           
         }
 
 
@@ -93,7 +136,8 @@ export const useUserStore = defineStore('user', () => {
         classes,
         getSchedules,
         schedules,
-        getSubjectSchedule
+        getSubjectSchedule,
+        uploadPhoto
     }
 
 
