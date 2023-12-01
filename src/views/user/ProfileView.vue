@@ -1,33 +1,43 @@
 <template>
-  <div class="row ">
+  <div class="column justify-center items-center px-[5%] md:px-[20%]">
+    <div class="my-10 w-full">
+      <div class="row justify-center q-pa-sm">
+        <PhotoUpload :imageVal="userForm.image" @upload="upload" :attribute="'image'" />
+      </div>
 
-    <div class="col-12 col-md-6 q-pa-lg">
-        <ProfileContainer/>
+      <CreateProfileForm @onUpdate="onUpdate"/>
     </div>
-    
-
   </div>
 </template>
 
 <script>
-import ProfileContainer from '../children/ProfileContainer.vue'
-import { useUserStore } from '@/store/user';
-import { onMounted } from 'vue';
-
+import { useUserStore } from "@/store/user";
+import { onMounted } from "vue";
+import CreateProfileForm from "@/views/children/CreateProfileForm.vue";
+import PhotoUpload from "@/components/PhotoUpload.vue";
+import { storeToRefs } from "pinia";
+import { useErrorStore } from "@/store/error";
 export default {
-    components:{ProfileContainer},
-    setup(){
+  components: { PhotoUpload, CreateProfileForm },
+  setup() {
+    const userStore = useUserStore();
+    const errorStore = useErrorStore();
+    const { errors } = storeToRefs(errorStore);
+    const { userForm } = storeToRefs(userStore);
 
-      const userStore = useUserStore()
-      onMounted(()=>{
-        //userStore.getProfile()
-      })
-
-    }
-
-}
+    onMounted(() => {
+      //userStore.getProfile()
+    });
+    return {
+      errors,
+      userForm,
+      onUpdate: () => {
+        userStore.updateProfile();
+      },
+    };
+  },
+};
 </script>
 
 <style>
-
 </style>

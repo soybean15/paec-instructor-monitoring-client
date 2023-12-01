@@ -33,6 +33,8 @@ export const useUserStore = defineStore('user', () => {
 
             user.value = response.data.user
             teacher_id.value = response.data.user.teacher.id
+            userForm.value = response.data.user.profile
+          
         }catch(e){
 
         }
@@ -42,15 +44,18 @@ export const useUserStore = defineStore('user', () => {
     const updateProfile = async (callback) => {
 
         try {
+            if (userForm.value.image ) {userForm.value.image=null}
             const response = await axios.post(`api/update/${user.value.id}`, userForm.value)
-
+          
             callback()
 
         } catch (e) {
+           // console.log(e)
 
             errorStore.handleError(() => {
 
-                if (e.response.status === 422) {
+               
+                if (e.response && e.response.status === 422) {
 
                     return e.response.data
 

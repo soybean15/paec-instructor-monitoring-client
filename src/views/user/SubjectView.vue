@@ -1,8 +1,9 @@
 <template>
   <div v-if="user">
+    
     <div class="row w-full" v-if="user.teacher">
       <div
-        class="col-md-4 col-6 p-3"
+        class="col-lg-3 col-md-4 col-12 p-3"
         v-for="item in user.teacher.current_subjects"
         :key="item.id"
       >
