@@ -2,8 +2,9 @@
   <div class="column justify-center items-center px-[5%] md:px-[20%]">
     <div class="my-10 w-full">
       <div class="row justify-center q-pa-sm">
-        <PhotoUpload :imageVal="userForm.image" @upload="upload" :attribute="'image'" />
+        <PhotoUpload :imageVal="userForm.image" @upload="upload" :attribute="'image'" :errors="errors" />
       </div>
+     
 
       <CreateProfileForm @onUpdate="onUpdate"/>
     </div>
@@ -33,7 +34,11 @@ export default {
       userForm,
       onUpdate: () => {
         userStore.updateProfile();
+        errors.value = []
       },
+      upload:(val)=>{
+        userStore.uploadPhoto(val)
+      }
     };
   },
 };

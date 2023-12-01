@@ -27,14 +27,14 @@
   </template>
   
   <script>
-  import { ref, watch } from "vue";
+  import { computed, ref, watch } from "vue";
   export default {
     props: ["imageVal","errors",'attribute'],
       emits:['upload'],
     setup(props,{emit}) {
       const fileInputRef = ref(null);
       const imageFile = ref(null);
-      const image = ref(props.imageVal);
+      const image = computed(()=>props.imageVal);
   
   
       watch(imageFile,()=>{
