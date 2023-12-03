@@ -2,6 +2,7 @@
       <div>
      
         <CalendarAgenda :agendaProps="schedules" v-if="schedules" />
+      
     </div>
 </template>
 
