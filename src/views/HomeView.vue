@@ -1,7 +1,7 @@
 <template>
   <div class="q-px-lg q-py-md">
     <div class="row text-lg font-secondary">Today's Schedule</div>
-    <q-timeline color="secondary ">
+    <q-timeline color="secondary " v-if="classes">
       <q-timeline-entry
         class="column "
     
@@ -17,6 +17,11 @@
         </div>
       </q-timeline-entry>
     </q-timeline>
+
+    <div v-else>
+          No schedule(s) for today
+    </div>
+    
   </div>
 </template>
 

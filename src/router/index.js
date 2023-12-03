@@ -100,7 +100,7 @@ const routes = [
         path: '/dashboard',
         name: 'dashboard',
         meta: { owner: 'dashboard' },
-        component: () => import('@/views/admin/SubjectView.vue'),
+        component: () => import('@/views/admin/DashboardView.vue'),
         beforeEnter: setActiveNav
       },
       {
@@ -160,6 +160,7 @@ const routes = [
         component: () => import('@/views/admin/SubjectView.vue'),
         beforeEnter: setActiveNav
       },
+
     ]
   },
   {
