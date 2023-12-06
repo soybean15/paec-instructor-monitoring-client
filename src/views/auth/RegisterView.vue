@@ -7,7 +7,7 @@
         <div class=" row justify-start text-xl text-secondary text-bold mb-5" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
          <h2>Create your account here</h2>
        </div>
-        <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md q-pt-md q-pa-sm">
+        <q-form @submit="onSubmit"  class="q-gutter-md q-pt-md q-pa-sm">
 
 
             <q-input
@@ -55,7 +55,7 @@
 
         <div class="q-mt-md">
           <p class="text-grey">Have an account already? 
-            <q-text class="text-secondary " style="text-decoration: underline;">Login Here</q-text>
+            <router-link to="/login"><span class="text-secondary  cursor-pointer" style="text-decoration: underline;">Login Here</span> </router-link>
           </p>
         </div>
         </q-form>

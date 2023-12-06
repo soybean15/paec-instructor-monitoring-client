@@ -7,6 +7,7 @@ import { useErrorStore } from './error'
 
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null)
+    const fetched = ref(false)
     const errors = ref([])
     const loginForm = ref({
         email: '',
@@ -88,6 +89,7 @@ export const useAuthStore = defineStore('auth', () => {
 
             if (handleError) {
                 handleError(e)
+                fetched.value = true
             }
 
 
@@ -110,6 +112,7 @@ export const useAuthStore = defineStore('auth', () => {
         register,
         login,
         getToken,
-        isAdmin
+        isAdmin,
+        fetched
     }
 })

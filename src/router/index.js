@@ -187,23 +187,27 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
 
-  const { user } = storeToRefs(authStore)
+  const { user,fetched } = storeToRefs(authStore)
 
 
 
 
   
   
-  if (!user.value || from.name == 'applicationStep') {
+  if ((!user.value)  || from.name == 'applicationStep') {
 
     
 
     await authStore.getUser((e) => {
 
       if (e.response.status === 401) {
-        setTimeout(() => {
+        
+        
+        if(!fetched.value){
           router.push({ name: 'login' });
-      },50);
+        }
+       
+      
         return
 
       }
