@@ -5,12 +5,16 @@
         <q-toolbar>
           <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
   
-          <q-toolbar-title>
-            <q-avatar>
-              <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-            </q-avatar>
-            PAEC SMS
-          </q-toolbar-title>
+          <q-toolbar-title class=" row items-center">
+              <div>
+                 <img
+                  src="../../assets/poc-logo.png"  style="width:55px; height: 50px;"
+                />
+              </div>
+               <div style="font-size: 18px;">
+                 POC-SMS
+               </div>
+            </q-toolbar-title>
         </q-toolbar>
       </q-header>
   

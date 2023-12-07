@@ -6,13 +6,15 @@
           <div class="row items-center">
             <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" v-if="user"/>
 
-            <q-toolbar-title>
-              <q-avatar>
-                <img
-                  src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg"
+            <q-toolbar-title class=" row items-center">
+              <div>
+                 <img
+                  src="../assets/poc-logo.png"  style="width:55px; height: 50px;"
                 />
-              </q-avatar>
-              Title
+              </div>
+               <div style="font-size: 18px;">
+                 POC-SMS
+               </div>
             </q-toolbar-title>
           </div>
 
@@ -97,11 +99,8 @@
 
     <q-footer class="bg-grey-8 text-white">
       <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-          </q-avatar>
-          <div>Title</div>
+        <q-toolbar-title class="row justify-start">
+          <div style="font-size: 10px;">&copy;2023 POC-SMS, All rights reserved.</div>
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>
