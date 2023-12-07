@@ -1,11 +1,15 @@
 <template>
 
-    <div class="q-pa-md row justify-center items-center">
+<div class=" row justify-center items-center  w-full  h-full" >
+    <img src="../../assets/school-bg.jpg" class="w-full h-screen relative object-cover" style="opacity: 70%;filter: blur(8px); " />
+    
 
-        <div  class="bg-white p-10 rounded-md shadow-2xl pt-5" style="width: 450px">
+        <div  class="bg-white p-10 rounded-md shadow-2xl pt-5 absolute top-20" style="width: 450px">
 
-        <div class=" row justify-start text-xl text-secondary text-bold mb-5" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-         <h2>Create your account here</h2>
+        <div class=" row justify-center items-center text-lg text-secondary text-bold " style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        
+         <img src="../../assets/poc-logo.png"  style="width:140px; height: 140px;"  />    
+         Create your account here
        </div>
         <q-form @submit="onSubmit"  class="q-gutter-md q-pt-md q-pa-sm">
 
@@ -50,7 +54,7 @@
         />
 
         <div class="row justify-end q-py-md">
-          <q-btn label="Sign up" type="submit" color="secondary" style="width: 100%; height: 50px;" />
+          <q-btn label="Sign up" type="submit" color="primary" style="width: 100%; height: 50px;" />
         </div>
 
         <div class="q-mt-md">
