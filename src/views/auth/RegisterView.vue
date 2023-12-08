@@ -1,10 +1,10 @@
 <template>
 
-<div class=" row justify-center items-center  w-full  h-full" >
+<div class=" row justify-center items-center px-5  w-full  h-full" >
    
     
 
-        <div  class="bg-white p-10 rounded-md shadow-2xl pt-5 absolute top-20" style="width: 450px">
+        <div  class="bg-white p-10 w-full md:w-[400px] rounded-md shadow-2xl pt-5 mt-10">
 
         <div class=" row justify-center items-center text-lg text-secondary text-bold " style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
         
