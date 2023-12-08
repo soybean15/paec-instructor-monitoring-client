@@ -94,7 +94,15 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+    
+      <div class="main">
+        <div class="background-image"></div>
+        <div class="content">
+          <router-view />
+        </div>
+       
+      </div>
+     
     </q-page-container>
 
     <q-footer class="bg-grey-8 text-white">
@@ -167,3 +175,30 @@ export default {
   },
 };
 </script>
+<style >
+  .main {
+    width: 100%;
+    height: 100vh; /* Adjust the height as needed */
+    position: relative;
+  }
+
+  .background-image {
+    width: 100%;
+    height: 100%;
+    background-image: url('@/assets/school-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px);
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  /* Additional styling for non-blurred content if needed */
+  .content {
+    position: relative;
+    z-index: 1;
+    /* Add other styles as needed */
+  }
+</style>

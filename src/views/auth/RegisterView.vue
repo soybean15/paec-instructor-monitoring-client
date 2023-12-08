@@ -1,7 +1,7 @@
 <template>
 
 <div class=" row justify-center items-center  w-full  h-full" >
-    <img src="../../assets/school-bg.jpg" class="w-full h-screen relative object-cover" style="opacity: 70%;filter: blur(8px); " />
+   
     
 
         <div  class="bg-white p-10 rounded-md shadow-2xl pt-5 absolute top-20" style="width: 450px">
