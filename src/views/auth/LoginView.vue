@@ -1,9 +1,9 @@
 <template>
   
-  <div class=" row justify-center items-center  w-full  h-full" >
+  <div class=" row justify-center items-center px-5  w-full  h-full" >
    
     
-    <div class=" rounded-md border-primary w-[400px] mt-10 shadow-2xl absolute top-20 bg-white">
+    <div class=" rounded-md border-primary w-full  md:w-[400px] mt-10 shadow-2xl  bg-white">
       <div class=" row justify-center text-secondary text-bold ">
              <div>  <img src="../../assets/poc-logo.png"  style="width:140px; height: 140px;" /></div>          
       </div>

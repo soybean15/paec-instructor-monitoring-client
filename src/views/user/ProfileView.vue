@@ -1,6 +1,6 @@
 <template>
   <div class="column justify-center items-center px-[5%] md:px-[20%]">
-    <div class="my-10 w-full">
+    <div class="my-10 w-full bg-white p-5 shadow-lg">
       <div class="row justify-center q-pa-sm">
         <PhotoUpload :imageVal="userForm.image" @upload="upload" :attribute="'image'" :errors="errors" />
       </div>
