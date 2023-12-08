@@ -1,9 +1,9 @@
 <template>
   
   <div class=" row justify-center items-center  w-full  h-full" >
-    <img src="../../assets/school-bg.jpg" class="w-full h-screen relative object-cover" style="opacity: 70%;filter: blur(8px); " />
+   
     
-    <div class=" rounded-md border-primary mt-10 shadow-2xl absolute top-20 bg-white" style="width: 450px;">
+    <div class=" rounded-md border-primary w-[400px] mt-10 shadow-2xl absolute top-20 bg-white">
       <div class=" row justify-center text-secondary text-bold ">
              <div>  <img src="../../assets/poc-logo.png"  style="width:140px; height: 140px;" /></div>          
       </div>
@@ -57,7 +57,7 @@ export default {
     return {
       onSubmit: () => {
         authStore.login(async()=>{
-          router.push({name:'home'})
+         router.push({name:'home'}) 
         });
       },
       loginForm,
