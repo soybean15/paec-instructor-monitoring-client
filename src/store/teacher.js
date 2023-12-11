@@ -77,14 +77,19 @@ export const useTeacherStore = defineStore('teacher', () => {
     }
 
     const insertSubjects = async(subjects)=>{
-    
+       
 
         try{
-            await axios.post(`api/admin/teacher/subject/${teacher.value.teacher.id}`,{
+            const response = await axios.post(`api/admin/teacher/subject/${teacher.value.teacher.id}`,{
                 subjects:subjects
             })
+            console.log(response.data)
+            teacher.value.teacher.current_subjects.push(...response.data.subjects)
+
+           console.log(teacher.value.teacher.current_subjects)
         }catch(e){
 
+            console.log(e)
         }   
 
     }
