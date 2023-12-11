@@ -28,7 +28,7 @@
               icon="info"
             >
               <q-tooltip class="bg-primary w-40" :offset="[10, 10]">
-                {{ item.subject.description }}
+                {{ item.subject? item.subject.description : item.description }}
               </q-tooltip>
             </q-avatar>
 
@@ -37,18 +37,18 @@
             <q-btn @click="openSchedule(item)" class="absolute bottom-3 right-5"  color="secondary" label="Schedules"/>
             <div class="text-lg flex font-bold">{{ item.subject_name }}</div>
             <div class="flex">
-              <span class="mr-2"> Code </span>{{ item.subject.code }}
+              <span class="mr-2"> Code </span>{{ item.subject ? item.subject.code : item.code }}
             </div>
             <div class="flex">
               <span class="mr-2"> Year Level </span
-              >{{ item.subject.year_level }}
+              >{{ item.subject? item.subject.year_level : item.year_level }}
             </div>
             <div class="flex">
-              <span class="mr-2"> Semester </span>{{ item.subject.semester }}
+              <span class="mr-2"> Semester </span>{{ item.subject? item.subject.semester : item.semester }}
             </div>
             <div class="flex">
               <span class="mr-2"> Number of Unit </span
-              >{{ item.subject.number_of_units }}
+              >{{ item.subject ? item.subject.number_of_units : item.number_of_units }}
             </div>
           </q-card-section>
 

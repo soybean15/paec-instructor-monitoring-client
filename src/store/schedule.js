@@ -26,12 +26,13 @@ export const useScheduleStore = defineStore('schedule',()=>{
     const addSchedule=async()=>{
         errors.value=[]
         try{
-            await axios.post('api/admin/teacher/subject/schedule',{
+            const response = await axios.post('api/admin/teacher/subject/schedule',{
                 data:scheduleForm.value,
                 teacher_subject_id:subject.value.id,
              
             })
             errors.value=[]
+            schedules.value.push(response.data.new_schedule)
         }catch(e){
             errors.value = e.response.data
             console.log(errors.value)
