@@ -125,10 +125,13 @@ export default {
       },
       days,
       dayModel,
-      submit: () => {
-        scheduleStore.addSchedule();
-        console.log(scheduleForm.value);
-       if (errors.message){
+      submit:async () => {
+        await scheduleStore.addSchedule();
+      
+        console.log(errors.value.message)
+       if (errors.value.message){
+        dialog.value = true;
+       }else {
         dialog.value = false;
        }
       },
