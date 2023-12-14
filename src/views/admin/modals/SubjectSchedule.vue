@@ -9,7 +9,7 @@
       <q-card class="" style="width: 700px; max-width: 80vh">
         <q-card-section>
           <div class="text-h6 row justify-between" v-if="subject">
-            
+     
             <div>{{ subject.subject_name }}</div>
           </div>
         </q-card-section>
