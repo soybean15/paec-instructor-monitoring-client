@@ -130,11 +130,7 @@ import {useTeacherStore} from '@/store/teacher'
                 to: 'pending',
                 icon: 'co_present'
             },
-            {
-                title:'Roles',
-                to: 'roles',
-                icon: 'admin_panel_settings'
-            }
+      
         ]
       },
       {
