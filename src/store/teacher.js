@@ -94,6 +94,13 @@ export const useTeacherStore = defineStore('teacher', () => {
 
     }
 
+    const getSubjectArchive = async()=>{
+        const response = await axios.post(`api/admin/teacher/archive/${teacher.value.id}`,
+            schoolInfo.value
+        )
+        teacher.value.teacher.current_subjects = response.data.subjects
+    }
+
 
 
     return {
@@ -112,7 +119,7 @@ export const useTeacherStore = defineStore('teacher', () => {
         dialog,
         availableSubjects,
         schoolInfo,
-        
+        getSubjectArchive
     }
 
 
