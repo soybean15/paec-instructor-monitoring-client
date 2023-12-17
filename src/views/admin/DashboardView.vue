@@ -15,6 +15,26 @@
              <stat class="col-6 col-md-3" :title="'Subjects'" :value="dashboard.subject_count"/>
              <stat class="col-6 col-md-3" :title="'Departments'" :value="dashboard.department_count"/>
         </div>
+
+        <div>
+
+            <div class="flex font-xl font-bold py-3"> Today Classes</div>
+            <div>
+
+                <div class="p-3 bg-primary text-secondary rounded-md" v-for="item in schedules" :key="item.id">
+                    <div class="flex text-lg">{{ item.teacher_subject.teacher.user.profile.full_name }}</div>
+                    <div class="flex text-lg text-white font-bold">{{ item.teacher_subject.subject_name }}</div>
+                    <div class="flex"><span class="text-white mr-3">Start:</span>{{ item.start }}</div>
+                    <div class="flex"><span class="text-white mr-3">End:</span>{{ item.end }}</div>
+                
+                </div>
+
+            </div>
+
+
+            
+
+        </div>
         
      
     </div>
@@ -29,7 +49,11 @@ import { storeToRefs } from 'pinia'
 import Stat from '@/components/Stat.vue'
 import { useDashboardStore } from '@/store/dashboard'
 import { onMounted } from 'vue'
+
+
+
 export default {
+
 components:{Stat},
     setup(){
         const userStore = useUserStore()
@@ -38,7 +62,7 @@ components:{Stat},
 
         const  dashboardStore = useDashboardStore()
 
-        const {dashboard}= storeToRefs(dashboardStore)
+        const {dashboard,schedules}= storeToRefs(dashboardStore)
         onMounted(()=>{
 
             dashboardStore.index()
@@ -46,7 +70,8 @@ components:{Stat},
         })
         return {
             user,
-            dashboard
+            dashboard,
+            schedules
         }
     }
 }

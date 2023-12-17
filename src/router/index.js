@@ -75,6 +75,7 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
+    redirect: '/dashboard',
     component: () => import(/* webpackChunkName: "about" */ '../views/admin/AdminView.vue'),
     beforeEnter: async (to, from, next) => {
       const authStore = useAuthStore()
