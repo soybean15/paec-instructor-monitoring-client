@@ -31,6 +31,7 @@ export const useScheduleStore = defineStore('schedule',()=>{
                 teacher_subject_id:subject.value.id,
              
             })
+           // scheduleForm.value=null
             errors.value=[]
             schedules.value.push(response.data.new_schedule)
         }catch(e){
